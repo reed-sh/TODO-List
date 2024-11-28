@@ -1,6 +1,6 @@
-import { addNewTask } from "./list";
+import { addNewTask, LinkedList } from "./list";
 
-export function generateList() {
+export function generatePage() {
     const content = document.getElementById(`content`);
     const container = document.createElement(`div`);
     const list = document.createElement(`div`);
@@ -40,8 +40,6 @@ export function generateList() {
     newTaskBtnLabel.innerText = `ADD TASK`;
     newTaskBtn.innerText = `ADD`;
 
-    document.getElementById(`newTaskBtn`).addEventListener("click", addNewTask);
-
     content.appendChild(container);
     container.appendChild(list);
     container.appendChild(newTaskContainer);
@@ -54,6 +52,8 @@ export function generateList() {
     newTaskForm.appendChild(newTaskDateInput);
     newTaskForm.appendChild(newTaskBtnLabel);
     newTaskForm.appendChild(newTaskBtn);
+
+    document.getElementById(`newTaskBtn`).addEventListener("click", addNewTask());
 
     // Display message if list is empty
     console.log(`List Generated!`);

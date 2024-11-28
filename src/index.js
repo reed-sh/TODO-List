@@ -1,4 +1,8 @@
 import "./styles.css";
-import { generateList } from "./page-load";
+import { generatePage } from "./page-load";
+import { LinkedList } from "./list";
 console.log("npx test");
-generateList();
+
+let taskList = new LinkedList;
+
+generatePage();
