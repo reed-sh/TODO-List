@@ -24,7 +24,7 @@ export class Task {
     };
 
     changeCompletion(){
-        if (completed = false){
+        if (completed === false){
             completed = true 
         } else {
             completed = false

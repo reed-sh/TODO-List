@@ -1,3 +1,30 @@
 body {
     background-color: #1e1e2e;
+    color: #cdd6f4;
+}
+
+#container {
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    margin: 2rem;
+    margin-left: 5rem;
+    margin-right: 5rem;
+    border: 5px solid #11111b;
+    border-radius: 10px;
+    background-color: #181825;
+
+}
+
+#list {
+    display: flex;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    margin: 0.1rem;
+    border: 2px solid #45475a;
+    border-radius: 5px;
+    background-color: #313244;
 }
