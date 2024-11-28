@@ -1,7 +1,6 @@
 export class Task {
-    constructor(title, category, desc, date){
+    constructor(title, desc, date){
         this.title = title;
-        this.category = category;
         this.desc = desc;
         this.date = date;
         this.completed = false;
@@ -14,10 +13,6 @@ export class Task {
     changeCategory(newCategory) {
         this.category = newCategory;
     }
-
-    changeDesc(newDesc){
-        this.desc = newDesc
-    };
 
     changeDate(newDate) {
         this.date = newDate
