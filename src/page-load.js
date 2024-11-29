@@ -1,9 +1,10 @@
-import { addNewTask, LinkedList } from "./list";
+import { createNewTask, taskArray } from "./list";
 
 export function generatePage() {
     const content = document.getElementById(`content`);
     const container = document.createElement(`div`);
     const list = document.createElement(`div`);
+    const listEmptyMsg = document.createElement(`span`);
     const newTaskContainer = document.createElement(`div`);
     const newTaskForm = document.createElement(`form`);
     const newTaskNameLabel = document.createElement(`label`);
@@ -23,6 +24,7 @@ export function generatePage() {
 
     setAttributes(container, {'id': `container`});
     setAttributes(list, {'id': `list`});
+    setAttributes(listEmptyMsg, {'id': `emptyListMsg`, 'class': `emptyListMsg`});
     setAttributes(newTaskContainer, {'id': `newTaskContainer`, 'class': `newTaskContainer`});
     setAttributes(newTaskForm, {'id': `newTaskForm`, 'class': `newTaskForm`});
     setAttributes(newTaskNameLabel, {'id': `newTaskNameLabel`, 'class': `newTaskLabel`});
@@ -34,6 +36,7 @@ export function generatePage() {
     setAttributes(newTaskBtnLabel, {'id': `newTaskBtnLabel`, 'class': `newTaskLabel`});
     setAttributes(newTaskBtn, {'id': `newTaskBtn`, 'class': `newTaskBtn`, 'type': `submit`});
     
+    listEmptyMsg.innerText = `YOUR LIST IS EMPTY`;
     newTaskNameLabel.innerText = `TASK`;
     newTaskCategoryLabel.innerText = `CATEGORY`;
     newTaskDateLabel.innerText = `DATE`;
@@ -42,6 +45,7 @@ export function generatePage() {
 
     content.appendChild(container);
     container.appendChild(list);
+    list.appendChild(listEmptyMsg);
     container.appendChild(newTaskContainer);
     newTaskContainer.appendChild(newTaskForm);
     newTaskForm.appendChild(newTaskNameLabel);
@@ -53,12 +57,39 @@ export function generatePage() {
     newTaskForm.appendChild(newTaskBtnLabel);
     newTaskForm.appendChild(newTaskBtn);
 
-    document.getElementById(`newTaskBtn`).addEventListener("click", addNewTask());
+    document.getElementById("newTaskBtn").addEventListener("click", createNewTask);
 
     // Display message if list is empty
     console.log(`List Generated!`);
-    if (list.innerHTML === ``) {
-        list.innerHTML = `YOUR LIST IS EMPTY`;
-        console.log (`List is empty`);
-    };
+}
+
+function checkIfEmpty(List) {
+    if (List.length === 0) {
+        document.querySelector(`.emptyListMsg`).style.display = `inline`;
+    } else {
+        document.querySelector(`.emptyListMsg`).style.display = `none`;
+    }
+}
+
+export function generateTask(task) {
+    let taskContainer = document.createElement(`div`);
+    let taskName = document.createElement(`div`);
+    let taskCategory = document.createElement(`div`);
+    let taskDate = document.createElement(`div`);
+    let taskComplete = document.createElement(`div`);
+    let taskList = document.getElementById(`list`);
+
+    checkIfEmpty(taskArray);
+
+    taskName.innerText = task.title;
+    taskCategory.innerText = task.category;
+    taskDate.innerText = task.date;
+    taskComplete.innerText = task.completed;
+
+    taskList.appendChild(taskContainer);
+    taskContainer.appendChild(taskName);
+    taskContainer.appendChild(taskCategory);
+    taskContainer.appendChild(taskDate);
+    taskContainer.appendChild(taskComplete);
+
 }
