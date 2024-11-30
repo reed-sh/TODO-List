@@ -2,7 +2,9 @@ import { createNewTask, taskArray } from "./list";
 
 export function generatePage() {
     const content = document.getElementById(`content`);
+    const sidebar = document.createElement(`div`);
     const container = document.createElement(`div`);
+
     const list = document.createElement(`div`);
     const listEmptyMsg = document.createElement(`span`);
     const newTaskContainer = document.createElement(`div`);
@@ -15,6 +17,16 @@ export function generatePage() {
     const newTaskDateInput = document.createElement(`input`);
     const newTaskBtnLabel = document.createElement(`label`);
     const newTaskBtn = document.createElement(`button`);
+
+    const sideCatLabel = document.createElement(`ul`);
+    const sideCatList = document.createElement(`list`);
+    const createCatBtn = document.createElement(`button`);
+    const loginBtn = document.createElement(`loginBtn`);
+
+    setAttributes(sidebar, {'id': `sidebar`});
+    setAttributes(sideCatLabel, {'id': `sideCatLabel`});
+    setAttributes(sideCatList, {'id': `sideCatList`})
+    setAttributes(createCatBtn, {'id': `createCatBtn`});
 
     setAttributes(container, {'id': `container`});
     setAttributes(list, {'id': `list`});
@@ -36,6 +48,14 @@ export function generatePage() {
     newTaskDateLabel.innerText = `DATE`;
     newTaskBtnLabel.innerText = `ADD TASK`;
     newTaskBtn.innerText = `ADD`;
+
+    sideCatLabel.innerText = `CATEGORIES`;
+    createCatBtn.innerText = `+ ADD CATEGORY`
+
+    content.appendChild(sidebar);
+    sidebar.appendChild(sideCatLabel);
+    sidebar.appendChild(sideCatList);
+    sidebar.appendChild(createCatBtn);
 
     content.appendChild(container);
     container.appendChild(list);

@@ -1,19 +1,60 @@
 body {
     background-color: #1e1e2e;
     color: #cdd6f4;
+    margin: 0;
+
+}
+
+#content {
+    display: flex;
+    flex-direction: row;
 }
 
 #container {
+    margin-left: 15rem;
+    padding-top: 5%;
+    padding-bottom: 5%;
     padding-left: 5%;
     padding-right: 5%;
-    padding-top: 2%;
-    padding-bottom: 2%;
-    margin: 2rem;
-    margin-left: 5rem;
-    margin-right: 5rem;
+    flex: 1;
     border: 0;
-    border-radius: 10px;
+    width: 20rem;
+    max-width: 40rem;
+    align-content: flex-end;
 
+}
+
+#sidebar {
+    display: flex;
+    flex-direction: column;
+    background-color: #181825;
+    box-shadow: 3px 0px rgba(49, 50, 68, 0.064);
+    height: 100vh;
+    max-height: 100%;
+    width: 15rem;
+    box-sizing: border-box;
+    position: fixed;
+    left: 0;
+    top: 0;
+}
+
+#createCatBtn {
+    background-color: #181825;
+    color:#fab387;
+    font-weight: bolder;
+    font-size: 0.86rem;
+    border: 1px solid #fab387;
+    width: 10rem;
+    height: 3rem;
+    border-radius: 50px;
+    margin: 0 auto;
+    margin-top: 5rem;
+
+}
+
+#createCatBtn:hover {
+    background-color: #fab387;
+    color: #181825;
 }
 
 #list {
