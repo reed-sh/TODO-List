@@ -16,12 +16,6 @@ export function generatePage() {
     const newTaskBtnLabel = document.createElement(`label`);
     const newTaskBtn = document.createElement(`button`);
 
-    function setAttributes(elmnt, attributesToSet) {
-        for (let i in attributesToSet) {
-            elmnt.setAttribute(i, attributesToSet[i]);
-        }
-    }
-
     setAttributes(container, {'id': `container`});
     setAttributes(list, {'id': `list`});
     setAttributes(listEmptyMsg, {'id': `emptyListMsg`, 'class': `emptyListMsg`});
@@ -76,15 +70,21 @@ export function generateTask(task) {
     let taskName = document.createElement(`div`);
     let taskCategory = document.createElement(`div`);
     let taskDate = document.createElement(`div`);
-    let taskComplete = document.createElement(`div`);
+    let taskComplete = document.createElement(`button`);
     let taskList = document.getElementById(`list`);
 
     checkIfEmpty(taskArray);
 
+    setAttributes(taskContainer, {'class': `taskContainer`});
+    setAttributes(taskName, {'class': `taskName`});
+    setAttributes(taskCategory, {'class': `taskCategory`});
+    setAttributes(taskDate, {'class': `taskDate`});
+    setAttributes(taskComplete, {'class': `taskComplete`});
+
     taskName.innerText = task.title;
     taskCategory.innerText = task.category;
     taskDate.innerText = task.date;
-    taskComplete.innerText = task.completed;
+    taskComplete.innerText = "X"
 
     taskList.appendChild(taskContainer);
     taskContainer.appendChild(taskName);
@@ -92,4 +92,10 @@ export function generateTask(task) {
     taskContainer.appendChild(taskDate);
     taskContainer.appendChild(taskComplete);
 
+}
+
+function setAttributes(elmnt, attributesToSet) {
+    for (let i in attributesToSet) {
+        elmnt.setAttribute(i, attributesToSet[i]);
+    }
 }

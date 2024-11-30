@@ -18,14 +18,14 @@ body {
 
 #list {
     display: flex;
-    padding-left: 5%;
-    padding-right: 5%;
-    padding-top: 2%;
-    padding-bottom: 2%;
+    flex-direction: column;
+    padding-left: 0%;
+    padding-right: 0%;
+    padding-top: 0%;
+    padding-bottom: 0%;
     margin: 0.1rem;
-    border: 2px solid #45475a;
+    border: 0px;
     border-radius: 5px;
-    background-color: #313244;
 }
 
 #newTaskContainer {
@@ -35,7 +35,7 @@ body {
     padding-top: 0%;
     padding-bottom: 0%;
     margin: 0.1rem;
-    margin-top: 0.3rem;
+    margin-top: 1rem;
     border: 2px solid #45475a;
     border-radius: 5px;
     background-color: #313244;
@@ -80,4 +80,87 @@ body {
     grid-column: 2;
     grid-row-start: 1;
     grid-row-end: 5;
+}
+
+.taskContainer {
+    display: grid;
+    grid-template-columns: 2;
+    grid-template-rows: 3;
+    background-color: #45475a;
+    box-shadow: 3px 3px #11111b;
+    padding-left: 2%;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-top: 0.2rem;
+    margin-bottom: 0.2rem;
+    border: 0px;
+    border-radius: 5px;
+    width: 100;
+}
+
+.taskContainer:hover > .taskComplete {
+    background-color: #f38ba8;
+    color: #11111b;
+}
+
+.taskContainer:hover {
+    background-color: #585b70;
+}
+
+.taskContainer:hover * {
+    color: #c6d0f5;
+}
+
+.taskName {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-top: 0.3rem;
+    grid-row-start: 1;
+    grid-row-end: 1;
+    grid-column-start: 1;
+    grid-column-end: 1;
+    width: 100%;
+    text-align: left;
+    color: #7f849c;
+    text-transform: uppercase;
+}
+
+.taskCategory {
+    font-size: 0.8rem;
+    grid-row-start: 2;
+    grid-row-end: 2;
+    grid-column-start: 1;
+    grid-column-end: 1;
+    width: 100%;
+    text-align: left;
+    color: #7f849c;
+}
+
+.taskDate {
+    font-size: 0.8rem;
+    grid-row-start: 3;
+    grid-row-end: 3;
+    grid-column-start: 1;
+    grid-column-end: 1;
+    width: 100%;
+    text-align: left;
+    margin-bottom: 0.3rem;
+    color: #7f849c;
+}
+
+.taskComplete {
+    grid-row-start: 1;
+    grid-row-end: 4;
+    grid-column-start: 2;
+    grid-column-end: 2;
+    border: 5px;
+    border-radius: 0px 5px 5px 0px;
+    height: 100%;
+    width: 4rem;
+    background-color: #313244;
+    color: #414559;
+    font-size: 2rem;
+    font-weight: bolder;
+    justify-self: right;
 }
