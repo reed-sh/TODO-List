@@ -1,7 +1,8 @@
-import { generateTask } from "./page-load";
+import { generateTask, refreshCatList } from "./page-load";
 import { Task } from "./tasks";
 
 export let taskArray = [];
+export let catArray = [];
 
 export function createNewTask(event){
     event.preventDefault();
@@ -16,7 +17,28 @@ export function createNewTask(event){
         taskArray.push(task);
     }
 
+    createNewCategory(taskCategory);
     addToList(taskToAdd);
     generateTask(taskToAdd);
     console.log(taskArray);
+}
+
+export function createNewCategory(category) {
+
+    let catName = category;
+
+    function checkIfExists(list, cat){
+        if (list.includes(cat)) {
+            return;
+        } else {
+            addToCatList(cat);
+        }
+    }
+
+    function addToCatList(catName) {
+        catArray.push(catName)
+    };
+
+    checkIfExists(catArray, catName);
+    refreshCatList();
 }

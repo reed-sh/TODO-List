@@ -1,4 +1,4 @@
-import { createNewTask, taskArray } from "./list";
+import { catArray, createNewTask, taskArray } from "./list";
 
 export function generatePage() {
     const content = document.getElementById(`content`);
@@ -18,10 +18,20 @@ export function generatePage() {
     const newTaskBtnLabel = document.createElement(`label`);
     const newTaskBtn = document.createElement(`button`);
 
+    const homeBtn = document.createElement(`button`);
+    const searchBtn = document.createElement(`button`);
+    const todayBtn = document.createElement(`button`);
+    const upcomingBtn = document.createElement(`button`);
+
     const sideCatLabel = document.createElement(`ul`);
     const sideCatList = document.createElement(`list`);
     const createCatBtn = document.createElement(`button`);
     const loginBtn = document.createElement(`loginBtn`);
+
+    setAttributes(homeBtn, {'id': `todayBtn`, 'class': `sidebarBtn`});
+    setAttributes(searchBtn, {'id': `searchBtn`, 'class': `sidebarBtn`});
+    setAttributes(upcomingBtn, {'id': `upcomingBtn`, 'class': `sidebarBtn`});
+    setAttributes(todayBtn, {'id': `todayBtn`, 'class': `sidebarBtn`});
 
     setAttributes(sidebar, {'id': `sidebar`});
     setAttributes(sideCatLabel, {'id': `sideCatLabel`});
@@ -49,10 +59,19 @@ export function generatePage() {
     newTaskBtnLabel.innerText = `ADD TASK`;
     newTaskBtn.innerText = `ADD`;
 
+    homeBtn.innerText = `Home`
+    searchBtn.innerText = `Search`;
+    todayBtn.innerHTML = `Today`;
+    upcomingBtn.innerText = `Upcoming`
+
     sideCatLabel.innerText = `CATEGORIES`;
     createCatBtn.innerText = `+ ADD CATEGORY`
 
     content.appendChild(sidebar);
+    sidebar.appendChild(homeBtn);
+    sidebar.appendChild(searchBtn);
+    sidebar.appendChild(todayBtn);
+    sidebar.appendChild(upcomingBtn);
     sidebar.appendChild(sideCatLabel);
     sidebar.appendChild(sideCatList);
     sidebar.appendChild(createCatBtn);
@@ -112,6 +131,49 @@ export function generateTask(task) {
     taskContainer.appendChild(taskDate);
     taskContainer.appendChild(taskComplete);
 
+}
+
+function hideTaskList() {
+    document.querySelector(`#list`).style.display = "none";
+}
+
+function showTaskList() {
+    document.querySelector(`#list`).style.display = "flex";
+}
+
+export function refreshCatList() {
+    const categories = catArray;
+    let list = document.getElementById(`sideCatList`);
+
+    function updateList(categories) {
+        const existingCategories = list.getElementsByTagName(`li`);
+
+        for (let li of existingCategories) {
+            if (!categories.includes(li.textContent)) {
+                list.removeChild(li);
+            }
+        }
+    }
+
+
+    categories.forEach(item => {
+        const existingCategories = list.getElementsByTagName(`li`);
+        let categoryDisplayed = false;
+
+        for (let li of existingCategories) {
+            if (li.textContent === item) {
+                categoryDisplayed = true;
+                break;
+            }
+        }
+
+        if (!categoryDisplayed) {
+            const li = document.createElement(`li`);
+            li.textContent = item;
+            list.appendChild(li);
+        }
+    });
+    updateList(categories);
 }
 
 function setAttributes(elmnt, attributesToSet) {
