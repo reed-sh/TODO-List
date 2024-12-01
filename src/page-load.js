@@ -1,4 +1,4 @@
-import { catArray, createNewTask, taskArray } from "./list";
+import { catArray, createNewTask, taskArray, removeTask } from "./list";
 
 export function generatePage() {
     const content = document.getElementById(`content`);
@@ -126,10 +126,14 @@ export function generateTask(task) {
     setAttributes(taskDate, {'class': `taskDate`});
     setAttributes(taskComplete, {'class': `taskComplete`});
 
+    taskContainer.setAttribute('data-id', task.id);
+
     taskName.innerText = task.title;
     taskCategory.innerText = task.category;
     taskDate.innerText = task.date;
     taskComplete.innerText = "X"
+
+    taskComplete.addEventListener("click", removeTask);
 
     taskList.appendChild(taskContainer);
     taskContainer.appendChild(taskName);

@@ -7,11 +7,12 @@ export let catArray = [];
 export function createNewTask(event){
     event.preventDefault();
 
+    const taskId = `${Date.now()}-${Math.random().toString(36).slice(2, 11)}`;
     let taskName = document.getElementById('newTaskNameInput').value;
     let taskCategory = document.getElementById('newTaskCategoryInput').value;
     let taskDate = document.getElementById('newTaskDateInput').value;
 
-    const taskToAdd = new Task(taskName, taskCategory, taskDate);
+    const taskToAdd = new Task(taskName, taskCategory, taskDate, taskId);
     
     function addToList(task) {
         taskArray.push(task);
@@ -30,6 +31,19 @@ export function createNewTask(event){
     addToList(taskToAdd);
     reloadTaskList();
     console.log(taskArray);
+}
+
+export function removeTask(event) {
+    event.preventDefault();
+
+    let button = event.target;
+    let task = button.parentNode;
+    let taskId = task.getAttribute(`data-id`);
+
+    taskArray = taskArray.filter(item => item.id !== taskId)
+    console.log(taskArray);
+    reloadTaskList();
+    refreshCatList();
 }
 
 export function createNewCategory(category) {
