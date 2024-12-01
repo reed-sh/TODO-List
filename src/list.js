@@ -17,6 +17,15 @@ export function createNewTask(event){
         taskArray.push(task);
     }
 
+    // Reset input fields back to placeholders
+    const inputs = document.querySelectorAll('input[class="newTaskInput"]');
+    inputs.forEach(function(input) {
+
+        input.value = '';
+        input.placeholder = input.placeholder;
+
+    });
+
     createNewCategory(taskCategory);
     addToList(taskToAdd);
     generateTask(taskToAdd);
