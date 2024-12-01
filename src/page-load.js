@@ -97,10 +97,16 @@ export function generatePage() {
 }
 
 function checkIfEmpty(List) {
-    if (List.length === 0) {
-        document.querySelector(`.emptyListMsg`).style.display = `inline`;
+    const emptyListMsg = document.querySelector(`.emptyuListMsg`);
+
+    if (emptyListMsg) {
+        if (List.length === 0) {
+            document.querySelector(`.emptyListMsg`).style.display = `inline`;
+        } else {
+            document.querySelector(`.emptyListMsg`).style.display = `none`;
+        }
     } else {
-        document.querySelector(`.emptyListMsg`).style.display = `none`;
+        console.error(`emptyListMsg element not found!`);
     }
 }
 
@@ -131,6 +137,32 @@ export function generateTask(task) {
     taskContainer.appendChild(taskDate);
     taskContainer.appendChild(taskComplete);
 
+}
+
+export function reloadTaskList() {
+    const taskArr = taskArray;
+    const taskListWrapper = document.getElementById(`list`);
+
+    if(taskListWrapper) {
+        taskListWrapper.innerHTML = ``;
+    }
+
+    taskArr.forEach(item => {
+        let tasksAlreadyListed = taskListWrapper.getElementsByClassName(`taskName`);
+        let taskIsDisplayed = false;
+
+        for (let taskName of tasksAlreadyListed) {
+            if (!taskName.textContent === item.title) {
+                taskIsDisplayed = true;
+                break;
+            }
+        }
+
+        if (!taskIsDisplayed) {
+            generateTask(item);
+        }
+
+    })
 }
 
 function hideTaskList() {

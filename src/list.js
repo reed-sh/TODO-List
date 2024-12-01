@@ -1,4 +1,4 @@
-import { generateTask, refreshCatList } from "./page-load";
+import { generateTask, refreshCatList, reloadTaskList } from "./page-load";
 import { Task } from "./tasks";
 
 export let taskArray = [];
@@ -28,7 +28,7 @@ export function createNewTask(event){
 
     createNewCategory(taskCategory);
     addToList(taskToAdd);
-    generateTask(taskToAdd);
+    reloadTaskList();
     console.log(taskArray);
 }
 
