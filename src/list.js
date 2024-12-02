@@ -1,8 +1,8 @@
-import { generateTask, refreshCatList, reloadTaskList } from "./page-load";
+import { checkIfEmpty, refreshCatList, reloadTaskList } from "./page-load";
 import { Task } from "./tasks";
 
 export let taskArray = [];
-export let catArray = [];
+export let catArray = [`General`];
 
 export function createNewTask(event){
     event.preventDefault();
@@ -43,6 +43,7 @@ export function removeTask(event) {
     taskArray = taskArray.filter(item => item.id !== taskId)
     console.log(taskArray);
     reloadTaskList();
+    checkIfEmpty(taskArray);
     refreshCatList();
 }
 

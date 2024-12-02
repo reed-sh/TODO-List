@@ -7,17 +7,8 @@ export function generatePage() {
 
     const list = document.createElement(`div`);
     const listEmptyMsg = document.createElement(`span`);
-    const newTaskContainer = document.createElement(`div`);
-    const newTaskForm = document.createElement(`form`);
-    const newTaskNameLabel = document.createElement(`label`);
-    const newTaskNameInput = document.createElement(`input`);
-    const newTaskCategoryLabel = document.createElement(`label`);
-    const newTaskCategoryInput = document.createElement(`input`);
-    const newTaskDateLabel = document.createElement(`label`);
-    const newTaskDateInput = document.createElement(`input`);
-    const newTaskBtnLabel = document.createElement(`label`);
-    const newTaskBtn = document.createElement(`button`);
 
+    const newTaskBtn = document.createElement(`button`);
     const homeBtn = document.createElement(`button`);
     const searchBtn = document.createElement(`button`);
     const todayBtn = document.createElement(`button`);
@@ -27,7 +18,8 @@ export function generatePage() {
     const sideCatList = document.createElement(`list`);
     const createCatBtn = document.createElement(`button`);
     const loginBtn = document.createElement(`loginBtn`);
-
+    
+    setAttributes(newTaskBtn, {'id': `newTaskBtn`, 'class': `sidebarBtn`});
     setAttributes(homeBtn, {'id': `todayBtn`, 'class': `sidebarBtn`});
     setAttributes(searchBtn, {'id': `searchBtn`, 'class': `sidebarBtn`});
     setAttributes(upcomingBtn, {'id': `upcomingBtn`, 'class': `sidebarBtn`});
@@ -41,33 +33,20 @@ export function generatePage() {
     setAttributes(container, {'id': `container`});
     setAttributes(list, {'id': `list`});
     setAttributes(listEmptyMsg, {'id': `emptyListMsg`, 'class': `emptyListMsg`});
-    setAttributes(newTaskContainer, {'id': `newTaskContainer`, 'class': `newTaskContainer`});
-    setAttributes(newTaskForm, {'id': `newTaskForm`, 'class': `newTaskForm`});
-    setAttributes(newTaskNameLabel, {'id': `newTaskNameLabel`, 'class': `newTaskLabel`});
-    setAttributes(newTaskNameInput, {'id': `newTaskNameInput`, 'class': `newTaskInput`, 'placeholder': `What is your task?`});
-    setAttributes(newTaskCategoryLabel, {'id': `newTaskCategoryLabel`, 'class': `newTaskLabel`});
-    setAttributes(newTaskCategoryInput, {'id': `newTaskCategoryInput`, 'class': `newTaskInput`, 'placeholder': `Select category!`});
-    setAttributes(newTaskDateLabel, {'id': `newTaskDateLabel`, 'class': `newTaskLabel`});
-    setAttributes(newTaskDateInput, {'id': `newTaskDateInput`, 'class': `newTaskInput`, 'placeholder': `When?`});
-    setAttributes(newTaskBtnLabel, {'id': `newTaskBtnLabel`, 'class': `newTaskLabel`});
-    setAttributes(newTaskBtn, {'id': `newTaskBtn`, 'class': `newTaskBtn`, 'type': `submit`});
     
     listEmptyMsg.innerText = `YOUR LIST IS EMPTY`;
-    newTaskNameLabel.innerText = `TASK`;
-    newTaskCategoryLabel.innerText = `CATEGORY`;
-    newTaskDateLabel.innerText = `DATE`;
-    newTaskBtnLabel.innerText = `ADD TASK`;
-    newTaskBtn.innerText = `ADD`;
 
-    homeBtn.innerText = `Home`
+    newTaskBtn.innerText = `NEW TASK`;
+    homeBtn.innerText = `Home`;
     searchBtn.innerText = `Search`;
     todayBtn.innerHTML = `Today`;
-    upcomingBtn.innerText = `Upcoming`
+    upcomingBtn.innerText = `Upcoming`;
 
     sideCatLabel.innerText = `CATEGORIES`;
-    createCatBtn.innerText = `+ ADD CATEGORY`
+    createCatBtn.innerText = `+ ADD CATEGORY`;
 
     content.appendChild(sidebar);
+    sidebar.appendChild(newTaskBtn);
     sidebar.appendChild(homeBtn);
     sidebar.appendChild(searchBtn);
     sidebar.appendChild(todayBtn);
@@ -79,24 +58,14 @@ export function generatePage() {
     content.appendChild(container);
     container.appendChild(list);
     list.appendChild(listEmptyMsg);
-    container.appendChild(newTaskContainer);
-    newTaskContainer.appendChild(newTaskForm);
-    newTaskForm.appendChild(newTaskNameLabel);
-    newTaskForm.appendChild(newTaskNameInput);
-    newTaskForm.appendChild(newTaskCategoryLabel);
-    newTaskForm.appendChild(newTaskCategoryInput);
-    newTaskForm.appendChild(newTaskDateLabel);
-    newTaskForm.appendChild(newTaskDateInput);
-    newTaskForm.appendChild(newTaskBtnLabel);
-    newTaskForm.appendChild(newTaskBtn);
 
-    document.getElementById("newTaskBtn").addEventListener("click", createNewTask);
+    document.getElementById("newTaskBtn").addEventListener("click", newTaskWindow);
 
     // Display message if list is empty
     console.log(`List Generated!`);
 }
 
-function checkIfEmpty(List) {
+export function checkIfEmpty(List) {
     const emptyListMsg = document.querySelector(`.emptyuListMsg`);
 
     if (emptyListMsg) {
@@ -147,6 +116,9 @@ export function reloadTaskList() {
     const taskArr = taskArray;
     const taskListWrapper = document.getElementById(`list`);
 
+    hideNewTaskWindow();
+    checkIfEmpty();
+
     if(taskListWrapper) {
         taskListWrapper.innerHTML = ``;
     }
@@ -175,11 +147,22 @@ function hideTaskList() {
 
 function showTaskList() {
     document.querySelector(`#list`).style.display = "flex";
+    reloadTaskList();
+}
+
+function hideNewTaskWindow() {
+    const window = document.getElementById(`newTaskContainer`);
+
+    if(window) {
+        window.remove();
+    }
 }
 
 export function refreshCatList() {
     const categories = catArray;
     let list = document.getElementById(`sideCatList`);
+
+    showTaskList();
 
     function updateList(categories) {
         const existingCategories = list.getElementsByTagName(`li`);
@@ -216,5 +199,70 @@ function setAttributes(elmnt, attributesToSet) {
     for (let i in attributesToSet) {
         elmnt.setAttribute(i, attributesToSet[i]);
     }
+}
+
+function newTaskWindow() {
+
+    if (document.getElementById(`newTaskContainer`)) {
+        return;
+    }
+
+    const newTaskContainer = document.createElement(`div`);
+    const newTaskForm = document.createElement(`form`);
+    const newTaskNameLabel = document.createElement(`label`);
+    const newTaskNameInput = document.createElement(`input`);
+    const newTaskCategoryLabel = document.createElement(`label`);
+    const newTaskCategoryInput = document.createElement(`select`);
+    const newTaskDateLabel = document.createElement(`label`);
+    const newTaskDateInput = document.createElement(`input`);
+    const addTaskBtnLabel = document.createElement(`label`);
+    const addTaskBtn = document.createElement(`button`);
+
+    setAttributes(newTaskContainer, {'id': `newTaskContainer`, 'class': `newTaskContainer`});
+    setAttributes(newTaskForm, {'id': `newTaskForm`, 'class': `newTaskForm`});
+    setAttributes(newTaskNameLabel, {'id': `newTaskNameLabel`, 'class': `newTaskLabel`});
+    setAttributes(newTaskNameInput, {'id': `newTaskNameInput`, 'class': `newTaskInput`, 'placeholder': `What is your task?`});
+    setAttributes(newTaskCategoryLabel, {'id': `newTaskCategoryLabel`, 'class': `newTaskLabel`});
+    setAttributes(newTaskCategoryInput, {'id': `newTaskCategoryInput`, 'class': `newTaskInput`, 'placeholder': `Select category!`});
+    setAttributes(newTaskDateLabel, {'id': `newTaskDateLabel`, 'class': `newTaskLabel`});
+    setAttributes(newTaskDateInput, {'id': `newTaskDateInput`, 'class': `newTaskInput`, 'placeholder': `When?`});
+    setAttributes(addTaskBtnLabel, {'id': `addTaskBtnLabel`, 'class': `newTaskLabel`});
+    setAttributes(addTaskBtn, {'id': `addTaskBtn`, 'class': `addTaskBtn`, 'type': `submit`});
+
+    newTaskNameLabel.innerText = `TASK`;
+    newTaskCategoryLabel.innerText = `CATEGORY`;
+    newTaskDateLabel.innerText = `DATE`;
+    addTaskBtnLabel.innerText = `ADD TASK`;
+    addTaskBtn.innerText = `CONFIRM`;
+
+    hideTaskList();
+
+    function populateCategoryList(arr) {
+        const categorySelect = document.getElementById(`newTaskCategoryInput`);
+
+        arr.forEach(item => {
+            const option = document.createElement(`option`);
+
+            option.value = item;
+            option.textContent = item
+            
+            categorySelect.appendChild(option);
+        })
+    }
+
+    container.appendChild(newTaskContainer);
+    newTaskContainer.appendChild(newTaskForm);
+    newTaskForm.appendChild(newTaskNameLabel);
+    newTaskForm.appendChild(newTaskNameInput);
+    newTaskForm.appendChild(newTaskCategoryLabel);
+    newTaskForm.appendChild(newTaskCategoryInput);
+    newTaskForm.appendChild(newTaskDateLabel);
+    newTaskForm.appendChild(newTaskDateInput);
+    newTaskForm.appendChild(addTaskBtnLabel);
+    newTaskForm.appendChild(addTaskBtn);
+
+    document.getElementById("addTaskBtn").addEventListener("click", createNewTask);
+    populateCategoryList(catArray);
+
 }
 
