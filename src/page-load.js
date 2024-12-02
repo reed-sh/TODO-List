@@ -18,6 +18,9 @@ export function generatePage() {
     const sideCatList = document.createElement(`list`);
     const createCatBtn = document.createElement(`button`);
     const loginBtn = document.createElement(`loginBtn`);
+
+    const pageTitle = document.createElement(`span`);
+    const pageDivider = document.createElement(`hr`);
     
     setAttributes(newTaskBtn, {'id': `newTaskBtn`, 'class': `sidebarBtn`});
     setAttributes(homeBtn, {'id': `todayBtn`, 'class': `sidebarBtn`});
@@ -33,6 +36,8 @@ export function generatePage() {
     setAttributes(container, {'id': `container`});
     setAttributes(list, {'id': `list`});
     setAttributes(listEmptyMsg, {'id': `emptyListMsg`, 'class': `emptyListMsg`});
+    setAttributes(pageTitle, {'id': `pageTitle`, 'class': `pageTitle`});
+    setAttributes(pageDivider, {'id': `pageDivider`, 'class': `pageDivider`});
     
     listEmptyMsg.innerText = `YOUR LIST IS EMPTY`;
 
@@ -45,6 +50,8 @@ export function generatePage() {
     sideCatLabel.innerText = `CATEGORIES`;
     createCatBtn.innerText = `+ ADD CATEGORY`;
 
+    pageTitle.innerText = `Your List`;
+
     content.appendChild(sidebar);
     sidebar.appendChild(newTaskBtn);
     sidebar.appendChild(homeBtn);
@@ -56,6 +63,8 @@ export function generatePage() {
     sidebar.appendChild(createCatBtn);
 
     content.appendChild(container);
+    container.appendChild(pageTitle);
+    container.appendChild(pageDivider);
     container.appendChild(list);
     list.appendChild(listEmptyMsg);
 
@@ -147,6 +156,7 @@ function hideTaskList() {
 
 function showTaskList() {
     document.querySelector(`#list`).style.display = "flex";
+    pageTitle.innerText = `Your List`;
     reloadTaskList();
 }
 
@@ -206,6 +216,8 @@ function newTaskWindow() {
     if (document.getElementById(`newTaskContainer`)) {
         return;
     }
+
+    pageTitle.innerText = `Add New Task`;
 
     const newTaskContainer = document.createElement(`div`);
     const newTaskForm = document.createElement(`form`);
