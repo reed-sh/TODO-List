@@ -125,7 +125,9 @@ body {
 }
 
 #createCatBtn {
-    margin-top: 0.5rem;
+    margin-top: 0.2rem;
+    margin-right: 5rem;
+    font-size: 0.85rem;
     color:#7f849c;
     background-color: #181926;
     border: 0px;
@@ -133,6 +135,27 @@ body {
 
 #createCatBtn:hover {
     color: #fab387;
+}
+
+.inputCat {
+    margin-left: 1.5rem;
+    background-color: #1e1e2e;
+    border: 0;
+    color: #cdd6f4;
+    font-size: 1rem;
+    text-indent: 1rem;
+    width: 80%;
+    height: 2rem;
+    order: 1px solid #11111b;
+    border-radius: 25px;
+}
+
+.inputCat:focus {
+    outline: none;
+    text-indent: 1rem;
+    background-color: #1e1e2e;
+    border: 1px solid #fab387;
+    border-radius: 25px;
 }
 
 #list {

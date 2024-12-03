@@ -1,4 +1,4 @@
-import { catArray, createNewTask, taskArray, removeTask } from "./list";
+import { catArray, createNewTask, taskArray, removeTask, createNewCategory } from "./list";
 
 export function generatePage() {
     const content = document.getElementById(`content`);
@@ -69,6 +69,7 @@ export function generatePage() {
     list.appendChild(listEmptyMsg);
 
     document.getElementById("newTaskBtn").addEventListener("click", newTaskWindow);
+    document.getElementById("createCatBtn").addEventListener("click", newCategoryInput);
 
     // Display message if list is empty
     console.log(`List Generated!`);
@@ -276,5 +277,36 @@ function newTaskWindow() {
     document.getElementById("addTaskBtn").addEventListener("click", createNewTask);
     populateCategoryList(catArray);
 
+}
+
+export function newCategoryInput(event) {
+    let createCatBtn = event.target;
+    const inputCat = document.createElement(`input`);
+    inputCat.type = `text`;
+    setAttributes(inputCat, {'id': `inputCat`, 'class': `inputCat`});
+    
+    createCatBtn.parentNode.replaceChild(inputCat, createCatBtn);
+
+    inputCat.focus();
+
+    inputCat.addEventListener(`keydown`, function(event) {
+        if (event.key === `Enter`) {
+            createNewCategory(inputCat.value);
+            const newCatBtn = document.createElement(`button`);
+            newCatBtn.id = `createCatBtn`;
+            newCatBtn.innerText = `+ ADD CATEGORY`
+            inputCat.parentNode.replaceChild(newCatBtn, inputCat);
+            newCatBtn.addEventListener(`click`, newCategoryInput)
+
+        }
+    })
+
+    inputCat.addEventListener(`blur`, function() {
+        const newCatBtn = document.createElement(`button`);
+        newCatBtn.id = `createCatBtn`;
+        newCatBtn.innerText = `+ ADD CATEGORY`
+        inputCat.parentNode.replaceChild(newCatBtn, inputCat);
+        newCatBtn.addEventListener(`click`, newCategoryInput)
+    })
 }
 
