@@ -73,6 +73,7 @@ export function generatePage() {
 
     // Display message if list is empty
     console.log(`List Generated!`);
+    refreshCatList();
 }
 
 export function checkIfEmpty(List) {
