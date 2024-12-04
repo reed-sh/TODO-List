@@ -74,6 +74,7 @@ export function generatePage() {
     // Display message if list is empty
     console.log(`List Generated!`);
     refreshCatList();
+    reloadTaskList(taskArray);
 }
 
 export function checkIfEmpty(List) {
@@ -123,8 +124,8 @@ export function generateTask(task) {
 
 }
 
-export function reloadTaskList() {
-    const taskArr = taskArray;
+export function reloadTaskList(params) {
+    const taskArr = params;
     const taskListWrapper = document.getElementById(`list`);
 
     hideNewTaskWindow();
@@ -159,7 +160,7 @@ function hideTaskList() {
 function showTaskList() {
     document.querySelector(`#list`).style.display = "flex";
     pageTitle.innerText = `Your List`;
-    reloadTaskList();
+    reloadTaskList(taskArray);
 }
 
 function hideNewTaskWindow() {
@@ -206,6 +207,7 @@ export function refreshCatList() {
 
             li.dataset.categoryName = item;
             li.textContent = item;
+            li.addEventListener(`click`, displayCategory);
 
             xBtn.textContent = `X`;
             xBtn.setAttribute(`class`, `removeCatBtn`);
@@ -325,5 +327,11 @@ export function newCategoryInput(event) {
         inputCat.parentNode.replaceChild(newCatBtn, inputCat);
         newCatBtn.addEventListener(`click`, newCategoryInput)
     })
+}
+
+export function displayCategory(event) {
+    const newTaskArr =  taskArray.filter(item => item.category === event.target.dataset.categoryName);
+    console.log(newTaskArr);
+    reloadTaskList(newTaskArr);
 }
 

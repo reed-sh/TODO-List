@@ -1,7 +1,9 @@
 import { checkIfEmpty, refreshCatList, reloadTaskList } from "./page-load";
 import { Task } from "./tasks";
 
-export let taskArray = [];
+const testTask = new Task(`Test Task`, `Test Category`, `Test Date`, `123-testID`);
+
+export let taskArray = [testTask]
 export let catArray = [`General`, `Dicks`];
 
 export function createNewTask(event){
@@ -29,7 +31,7 @@ export function createNewTask(event){
 
     createNewCategory(taskCategory);
     addToList(taskToAdd);
-    reloadTaskList();
+    reloadTaskList(taskArray);
     console.log(taskArray);
 }
 
@@ -42,7 +44,7 @@ export function removeTask(event) {
 
     taskArray = taskArray.filter(item => item.id !== taskId)
     console.log(taskArray);
-    reloadTaskList();
+    reloadTaskList(taskArray);
     checkIfEmpty(taskArray);
     refreshCatList();
 }
