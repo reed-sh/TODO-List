@@ -2,7 +2,7 @@ import { checkIfEmpty, refreshCatList, reloadTaskList } from "./page-load";
 import { Task } from "./tasks";
 
 export let taskArray = [];
-export let catArray = [`General`];
+export let catArray = [`General`, `Dicks`];
 
 export function createNewTask(event){
     event.preventDefault();
@@ -64,5 +64,13 @@ export function createNewCategory(category) {
     };
 
     checkIfExists(catArray, catName);
+    refreshCatList();
+}
+
+export function removeCategory(event) {
+
+    let catName = event.target.parentNode.dataset.categoryName;
+
+    catArray = catArray.filter(item => item !== catName)
     refreshCatList();
 }

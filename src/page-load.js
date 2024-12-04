@@ -1,4 +1,4 @@
-import { catArray, createNewTask, taskArray, removeTask, createNewCategory } from "./list";
+import { catArray, createNewTask, taskArray, removeTask, createNewCategory, removeCategory } from "./list";
 
 export function generatePage() {
     const content = document.getElementById(`content`);
@@ -180,7 +180,8 @@ export function refreshCatList() {
         const existingCategories = list.getElementsByTagName(`li`);
 
         for (let li of existingCategories) {
-            if (!categories.includes(li.textContent)) {
+            const categoryName = li.dataset.categoryName;
+            if (!categories.includes(categoryName)) {
                 list.removeChild(li);
             }
         }
@@ -192,7 +193,7 @@ export function refreshCatList() {
         let categoryDisplayed = false;
 
         for (let li of existingCategories) {
-            if (li.textContent === item) {
+            if (li.dataset.categoryName === item) {
                 categoryDisplayed = true;
                 break;
             }
@@ -200,10 +201,23 @@ export function refreshCatList() {
 
         if (!categoryDisplayed) {
             const li = document.createElement(`li`);
+            const xBtn = document.createElement(`button`);
+            
+
+            li.dataset.categoryName = item;
             li.textContent = item;
+
+            xBtn.textContent = `X`;
+            xBtn.setAttribute(`class`, `removeCatBtn`);
+            xBtn.addEventListener(`click`, removeCategory);
+
+            li.appendChild(xBtn);
             list.appendChild(li);
+            console.log(`Categories to display:`, categories);
+            console.log(`Existing categories:`, Array.from(existingCategories).map(li => li.textContent));
         }
     });
+
     updateList(categories);
 }
 
@@ -286,7 +300,9 @@ export function newCategoryInput(event) {
     inputCat.type = `text`;
     setAttributes(inputCat, {'id': `inputCat`, 'class': `inputCat`});
     
-    createCatBtn.parentNode.replaceChild(inputCat, createCatBtn);
+    if (inputCat){
+        createCatBtn.parentNode.replaceChild(inputCat, createCatBtn);
+    }
 
     inputCat.focus();
 

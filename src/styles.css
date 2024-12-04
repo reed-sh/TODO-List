@@ -2,6 +2,7 @@ body {
     background-color: #1e1e2e;
     color: #cdd6f4;
     margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
 
 }
 
@@ -112,6 +113,9 @@ body {
 #sideCatList > li {
     text-transform: uppercase;
     padding-bottom: 0.5rem;
+    padding-left: 0;
+    padding-top: 0;
+    padding-right: 0;
     font-size: 0.9rem;
     color: #9399b2;
 }
@@ -119,6 +123,25 @@ body {
 #sideCatList > li:hover {
     color: #cdd6f4;
     font-weight: bold;
+}
+
+#sideCatList > li:hover > .removeCatBtn {
+    visibility: visible;
+}
+
+.removeCatBtn {
+    visibility: hidden;
+    float: right;
+    margin-right: 1rem;
+    padding: 0;
+    font-size: 0.9rem;
+    border: 0;
+    background-color: #181825;
+    color: #9399b2;
+}
+
+.removeCatBtn:hover {
+    display: block;
 }
 
 #createCatBtn {
