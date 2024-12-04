@@ -68,11 +68,10 @@ export function generatePage() {
     container.appendChild(list);
     list.appendChild(listEmptyMsg);
 
+    document.getElementById("todayBtn").addEventListener("click", () => reloadTaskList(taskArray));
     document.getElementById("newTaskBtn").addEventListener("click", newTaskWindow);
     document.getElementById("createCatBtn").addEventListener("click", newCategoryInput);
 
-    // Display message if list is empty
-    console.log(`List Generated!`);
     refreshCatList();
     reloadTaskList(taskArray);
 }
