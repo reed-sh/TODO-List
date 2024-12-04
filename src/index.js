@@ -1,5 +1,4 @@
 import "./styles.css";
-import { generatePage } from "./page-load";
-console.log("npx test");
+import { loadPage } from "./pageLoad";
 
-generatePage();
+loadPage();
