@@ -53,6 +53,11 @@ body {
     top: 0;
 }
 
+#menu {
+    display: flex;
+    flex-direction: column;
+}
+
 #newTaskBtn {
     background-color: #181825;
     color:#fab387;
@@ -93,7 +98,14 @@ body {
     font-weight: bolder;
 }
 
-#sideCatLabel {
+#projects {
+    display: flex;
+    flex-direction: column;
+    flex: auto;
+}
+
+#projectsLabel {
+    order: 1;
     color: #fab387;
     font-size: 1.3rem;
     font-weight: bolder;
@@ -101,16 +113,17 @@ body {
     margin-top: 3rem;
 }
 
-#sideCatList {
-    margin-top: -0.7rem;
+#projectsList {
+    order: 2;
+    margin-top: 0;
     margin-left: 2.6rem;
 }
 
-#sideCatList ::marker {
+#projectsList ::marker {
     content: "# ";
 }
 
-#sideCatList > li {
+#projectsList > li {
     text-transform: uppercase;
     padding-bottom: 0.5rem;
     padding-left: 0;
@@ -120,16 +133,16 @@ body {
     color: #9399b2;
 }
 
-#sideCatList > li:hover {
+#projectsList > li:hover {
     color: #cdd6f4;
     font-weight: bold;
 }
 
-#sideCatList > li:hover > .removeCatBtn {
+#projectsList > li:hover > .removeProjectBtn {
     visibility: visible;
 }
 
-.removeCatBtn {
+.removeProjectBtn {
     visibility: hidden;
     float: right;
     margin-right: 1rem;
@@ -140,24 +153,26 @@ body {
     color: #9399b2;
 }
 
-.removeCatBtn:hover {
+.removeProjectBtn:hover {
     display: block;
 }
 
-#createCatBtn {
-    margin-top: 0.2rem;
-    margin-right: 5rem;
+#addProjectBtn {
+    order: 3;
+    margin-top: 0;
+    margin-right: 0rem;
     font-size: 0.85rem;
     color:#7f849c;
     background-color: #181926;
     border: 0px;
 }
 
-#createCatBtn:hover {
+#addProjectBtn:hover {
     color: #fab387;
 }
 
-.inputCat {
+.inputProject {
+    order: 3;
     margin-left: 1.5rem;
     background-color: #1e1e2e;
     border: 0;
@@ -170,7 +185,7 @@ body {
     border-radius: 25px;
 }
 
-.inputCat:focus {
+.inputProject:focus {
     outline: none;
     text-indent: 1rem;
     background-color: #1e1e2e;
@@ -191,7 +206,7 @@ body {
     border-radius: 5px;
 }
 
-#newTaskContainer {
+#newTaskWrapper {
     display: block;
     padding-left: 0%;
     padding-right: 0%;
@@ -242,7 +257,7 @@ body {
 
 }
 
-#newTaskNameInput {
+#newTaskTitleInput {
     height: 3rem;
     font-size: 2rem;
     grid-column-start: 1;
@@ -292,7 +307,7 @@ body {
     width: 100;
 }
 
-.taskContainer:hover > .taskComplete {
+.taskContainer:hover > .taskCompletion {
     background-color: #f38ba8;
     color: #11111b;
 }
@@ -305,7 +320,7 @@ body {
     color: #c6d0f5;
 }
 
-.taskName {
+.taskTitle {
     font-size: 1.5rem;
     font-weight: bold;
     margin-top: 0.3rem;
@@ -319,7 +334,7 @@ body {
     text-transform: uppercase;
 }
 
-.taskCategory {
+.taskProject {
     font-size: 0.8rem;
     grid-row-start: 2;
     grid-row-end: 2;
@@ -342,7 +357,7 @@ body {
     color: #7f849c;
 }
 
-.taskComplete {
+.taskCompletion {
     grid-row-start: 1;
     grid-row-end: 4;
     grid-column-start: 2;
