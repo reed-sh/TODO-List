@@ -69,6 +69,8 @@ export function loadPage() {
     document.getElementById("todayBtn").addEventListener("click", () => loadTasksList(tasksArray))
     document.getElementById("newTaskBtn").addEventListener("click", loadNewTaskForm)
     document.getElementById("newProjectBtn").addEventListener("click", newProjectInput)
+    loadTasksList(tasksArray)
+    loadProjectsList(projectsArray)
 }
 
 function loadTasksList(array) {
@@ -105,7 +107,7 @@ function loadProjectsList(array) {
         }
     }
     projects.forEach(item => {
-        const listedProjects = list.getElementsByTagName(`li`);
+        const listedProjects = projectsList.getElementsByTagName(`li`);
         let projectIsDisplayed = false;
         for (let li of listedProjects) {
             if (li.dataset.projectName === item) {
@@ -118,12 +120,12 @@ function loadProjectsList(array) {
             const removeButton = document.createElement(`button`);
             newProject.dataset.projectName = item;
             newProject.textContent = item;
-            newProject.addEventListener(`click`, (event) => loadTasksList(selectedProject));
+            newProject.addEventListener(`click`, (click) => loadTasksList(selectedProject(click)));
             removeButton.textContent = `X`;
             removeButton.setAttribute(`class`, `removeProjectBtn`);
             removeButton.addEventListener(`click`, removeProject);
             newProject.appendChild(removeButton);
-            list.appendChild(newProject);
+            projectsList.appendChild(newProject);
         }
     });
     updateList(projects)
@@ -191,19 +193,19 @@ function newProjectInput(event) {
     projectInput.addEventListener(`keydown`, function(event) {
         if (event.key === `Enter`) {
             const newButton = document.createElement(`button`)
-            newButton.id = `createCatBtn`
-            newButton.innerText = `+ ADD CATEGORY`
+            newButton.id = `newProjectBtn`
+            newButton.innerText = `New Project`
             projectInput.parentNode.replaceChild(newButton, projectInput)
-            newButton.addEventListener(`click`, newProject)
-            addProject(inputCat.value)
+            newButton.addEventListener(`click`, newProjectInput)
+            addProject(projectInput.value)
         }
     })
     projectInput.addEventListener(`blur`, function() {
         const newButton = document.createElement(`button`)
-        newButton.id = `createCatBtn`
-        newButton.innerText = `+ ADD CATEGORY`
+        newButton.id = `newProjectBtn`
+        newButton.innerText = `New Project`
         projectInput.parentNode.replaceChild(newButton, projectInput)
-        newButton.addEventListener(`click`, projectInput)
+        newButton.addEventListener(`click`, newProjectInput)
     })
 }
 

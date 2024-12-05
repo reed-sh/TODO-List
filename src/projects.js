@@ -1,3 +1,4 @@
+import { tasksArray } from "./tasks"
 export let projectsArray = [`Default`, `Work`]
 export const selectedProject = (event) => tasksArray.filter(item => item.project === event.target.dataset.projectName)
 const projectExists = function checkIfProjectExists(project) {
