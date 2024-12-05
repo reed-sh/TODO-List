@@ -3,16 +3,17 @@ export let tasksArray = []
 export function newTask(event){
     event.preventDefault()
     const taskId = `${Date.now()}-${Math.random().toString(36).slice(2, 11)}`
-    const taskName = document.getElementById('newTaskNameInput').value
-    const taskProject = document.getElementById('newTaskCategoryInput').value
-    const taskDate = document.getElementById('newTaskDateInput').value
-    const newTask = new Task(taskName, taskProject, taskDate, taskId)
+    const taskTitle = document.getElementById('titleInput').value
+    const taskProject = document.getElementById('projectInput').value
+    const taskDate = document.getElementById('dateInput').value
+    const newTask = new Task(taskTitle, taskProject, taskDate, taskId)
     tasksArray.push(newTask)
 }
 export function removeTask(event) {
     event.preventDefault()
     tasksArray = tasksArray.filter(item => item.id !== event.target.parentNode.getAttribute('data-id'))
 }
+
 export function displayTask(task) {
     const taskContainer = document.createElement(`div`)
     const taskName = document.createElement(`div`)

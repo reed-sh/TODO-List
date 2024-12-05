@@ -185,7 +185,7 @@ function newProjectInput(event) {
     const projectButton = event.target
     const projectInput = document.createElement(`input`)
     projectInput.type = `text`
-    setAttributes(projectInput, {'id': `inputCat`, 'class': `inputCat`})
+    setAttributes(projectInput, {'id': `projectInput`, 'class': `projectInput`})
     if (projectInput){
         projectButton.parentNode.replaceChild(projectInput, projectButton)
     }
