@@ -3,33 +3,42 @@ import { tasksArray, newTask, displayTask } from "./tasks"
 import { setAttributes } from "./utils"
 
 export function loadPage() {
-    const content = document.getElementById(`content`);
-    const sidebar = document.createElement(`div`);
-    const container = document.createElement(`div`);
-    const list = document.createElement(`div`);
-    const newTaskBtn = document.createElement(`button`);
-    const homeBtn = document.createElement(`button`);
-    const searchBtn = document.createElement(`button`);
-    const todayBtn = document.createElement(`button`);
-    const upcomingBtn = document.createElement(`button`);
-    const sideCatLabel = document.createElement(`ul`);
-    const sideCatList = document.createElement(`list`);
-    const createCatBtn = document.createElement(`button`);
-    const pageTitle = document.createElement(`span`);
-    const pageDivider = document.createElement(`hr`);
-
+    const content = document.getElementById(`content`)
+    // sidebar:
+    const sidebar = document.createElement(`div`)
+    const menu = document.createAttribute(`div`)
+    const projects = document.createElement(`div`)
+    // sidebar -> menu:
+    const newTaskBtn = document.createElement(`button`)
+    const homeBtn = document.createElement(`button`)
+    const searchBtn = document.createElement(`button`)
+    const todayBtn = document.createElement(`button`)
+    const upcomingBtn = document.createElement(`button`)
+    // sidebar -> projects
+    const projectsLabel = document.createElement(`ul`);
+    const projectsList = document.createElement(`list`)
+    const newProjectBtn = document.createElement(`button`)
+    //container:
+    const container = document.createElement(`div`)
+    const header = document.createElement(`div`)
+    const main = document.createElement(`div`)
+    //container -> header:
+    const pageTitle = document.createElement(`span`)
+    const pageDivider = document.createElement(`hr`)
+  
+    setAttributes(menu, {'id': `menu`, 'class': `menu`});
+    setAttributes(projects, {'id': `projects`, 'class': `projects`});
     setAttributes(newTaskBtn, {'id': `newTaskBtn`, 'class': `sidebarBtn`});
-    setAttributes(homeBtn, {'id': `todayBtn`, 'class': `sidebarBtn`});
+    setAttributes(homeBtn, {'id': `homeBtn`, 'class': `sidebarBtn`});
     setAttributes(searchBtn, {'id': `searchBtn`, 'class': `sidebarBtn`});
     setAttributes(upcomingBtn, {'id': `upcomingBtn`, 'class': `sidebarBtn`});
     setAttributes(todayBtn, {'id': `todayBtn`, 'class': `sidebarBtn`});
     setAttributes(sidebar, {'id': `sidebar`});
-    setAttributes(sideCatLabel, {'id': `sideCatLabel`});
-    setAttributes(sideCatList, {'id': `sideCatList`})
-    setAttributes(createCatBtn, {'id': `createCatBtn`});
+    setAttributes(projectsLabel, {'id': `projectsLabel`});
+    setAttributes(projectsList, {'id': `projectsList`})
+    setAttributes(newProjectBtn, {'id': `newProjectBtn`});
     setAttributes(container, {'id': `container`});
-    setAttributes(list, {'id': `list`});
-    setAttributes(listEmptyMsg, {'id': `emptyListMsg`, 'class': `emptyListMsg`});
+    setAttributes(main, {'id': `main`});
     setAttributes(pageTitle, {'id': `pageTitle`, 'class': `pageTitle`});
     setAttributes(pageDivider, {'id': `pageDivider`, 'class': `pageDivider`});
     
@@ -38,25 +47,23 @@ export function loadPage() {
     searchBtn.innerText = `Search`;
     todayBtn.innerHTML = `Today`;
     upcomingBtn.innerText = `Upcoming`;
-    sideCatLabel.innerText = `CATEGORIES`;
-    createCatBtn.innerText = `+ ADD CATEGORY`;
-    pageTitle.innerText = `Your List`;
+    sideCatLabel.innerText = `Projects`;
+    createCatBtn.innerText = `Add Project`;
 
+    content.appendChild(main);
     content.appendChild(sidebar);
-    sidebar.appendChild(newTaskBtn);
-    sidebar.appendChild(homeBtn);
-    sidebar.appendChild(searchBtn);
-    sidebar.appendChild(todayBtn);
-    sidebar.appendChild(upcomingBtn);
-    sidebar.appendChild(sideCatLabel);
-    sidebar.appendChild(sideCatList);
-    sidebar.appendChild(createCatBtn);
-
-    content.appendChild(container);
-    container.appendChild(pageTitle);
-    container.appendChild(pageDivider);
-    container.appendChild(list);
-    list.appendChild(listEmptyMsg);
+    content.appendChild(header);
+    sidebar.appendChild(menu);
+    sidebar.appendChild(projects)
+    menu.appendChild(homeBtn);
+    menu.appendChild(searchBtn);
+    menu.appendChild(todayBtn);
+    menu.appendChild(upcomingBtn);
+    projects.appendChild(projectsLabel);
+    projects.appendChild(projectsList);
+    projects.appendChild(newProjectBtn);
+    header.appendChild(pageTitle);
+    header.appendChild(pageDivider);
 
     document.getElementById("todayBtn").addEventListener("click", () => loadTasksList(tasksArray));
     document.getElementById("newTaskBtn").addEventListener("click", newTaskWindow);
