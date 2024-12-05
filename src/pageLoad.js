@@ -1,4 +1,4 @@
-import { addProject, removeProject, selectedProject } from "./projects"
+import { addProject, projectsArray, removeProject, selectedProject } from "./projects"
 import { tasksArray, newTask, displayTask } from "./tasks"
 import { setAttributes } from "./utils"
 
@@ -6,7 +6,7 @@ export function loadPage() {
     const content = document.getElementById(`content`)
     // sidebar:
     const sidebar = document.createElement(`div`)
-    const menu = document.createAttribute(`div`)
+    const menu = document.createElement(`div`)
     const projects = document.createElement(`div`)
     // sidebar -> menu:
     const newTaskBtn = document.createElement(`button`)
@@ -26,56 +26,59 @@ export function loadPage() {
     const pageTitle = document.createElement(`span`)
     const pageDivider = document.createElement(`hr`)
   
-    setAttributes(menu, {'id': `menu`, 'class': `menu`});
-    setAttributes(projects, {'id': `projects`, 'class': `projects`});
-    setAttributes(newTaskBtn, {'id': `newTaskBtn`, 'class': `sidebarBtn`});
-    setAttributes(homeBtn, {'id': `homeBtn`, 'class': `sidebarBtn`});
-    setAttributes(searchBtn, {'id': `searchBtn`, 'class': `sidebarBtn`});
-    setAttributes(upcomingBtn, {'id': `upcomingBtn`, 'class': `sidebarBtn`});
-    setAttributes(todayBtn, {'id': `todayBtn`, 'class': `sidebarBtn`});
-    setAttributes(sidebar, {'id': `sidebar`});
-    setAttributes(projectsLabel, {'id': `projectsLabel`});
+    setAttributes(menu, {'id': `menu`, 'class': `menu`})
+    setAttributes(projects, {'id': `projects`, 'class': `projects`})
+    setAttributes(newTaskBtn, {'id': `newTaskBtn`, 'class': `sidebarBtn`})
+    setAttributes(homeBtn, {'id': `homeBtn`, 'class': `sidebarBtn`})
+    setAttributes(searchBtn, {'id': `searchBtn`, 'class': `sidebarBtn`})
+    setAttributes(upcomingBtn, {'id': `upcomingBtn`, 'class': `sidebarBtn`})
+    setAttributes(todayBtn, {'id': `todayBtn`, 'class': `sidebarBtn`})
+    setAttributes(sidebar, {'id': `sidebar`})
+    setAttributes(projectsLabel, {'id': `projectsLabel`})
     setAttributes(projectsList, {'id': `projectsList`})
-    setAttributes(newProjectBtn, {'id': `newProjectBtn`});
-    setAttributes(container, {'id': `container`});
-    setAttributes(main, {'id': `main`});
-    setAttributes(pageTitle, {'id': `pageTitle`, 'class': `pageTitle`});
-    setAttributes(pageDivider, {'id': `pageDivider`, 'class': `pageDivider`});
+    setAttributes(newProjectBtn, {'id': `newProjectBtn`})
+    setAttributes(container, {'id': `container`})
+    setAttributes(main, {'id': `main`})
+    setAttributes(pageTitle, {'id': `pageTitle`, 'class': `pageTitle`})
+    setAttributes(pageDivider, {'id': `pageDivider`, 'class': `pageDivider`})
     
-    newTaskBtn.innerText = `NEW TASK`;
-    homeBtn.innerText = `Home`;
-    searchBtn.innerText = `Search`;
-    todayBtn.innerHTML = `Today`;
-    upcomingBtn.innerText = `Upcoming`;
-    sideCatLabel.innerText = `Projects`;
-    createCatBtn.innerText = `Add Project`;
+    newTaskBtn.innerText = `NEW TASK`
+    homeBtn.innerText = `Home`
+    searchBtn.innerText = `Search`
+    todayBtn.innerHTML = `Today`
+    upcomingBtn.innerText = `Upcoming`
+    projectsLabel.innerText = `Projects`
+    newProjectBtn.innerText = `Add Project`
 
-    content.appendChild(main);
-    content.appendChild(sidebar);
-    content.appendChild(header);
-    sidebar.appendChild(menu);
+    content.appendChild(main)
+    content.appendChild(sidebar)
+    content.appendChild(header)
+    sidebar.appendChild(menu)
     sidebar.appendChild(projects)
-    menu.appendChild(homeBtn);
-    menu.appendChild(searchBtn);
-    menu.appendChild(todayBtn);
-    menu.appendChild(upcomingBtn);
-    projects.appendChild(projectsLabel);
-    projects.appendChild(projectsList);
-    projects.appendChild(newProjectBtn);
-    header.appendChild(pageTitle);
-    header.appendChild(pageDivider);
+    menu.appendChild(newTaskBtn)
+    menu.appendChild(homeBtn)
+    menu.appendChild(searchBtn)
+    menu.appendChild(todayBtn)
+    menu.appendChild(upcomingBtn)
+    projects.appendChild(projectsLabel)
+    projects.appendChild(projectsList)
+    projects.appendChild(newProjectBtn)
+    header.appendChild(pageTitle)
+    header.appendChild(pageDivider)
 
-    document.getElementById("todayBtn").addEventListener("click", () => loadTasksList(tasksArray));
-    document.getElementById("newTaskBtn").addEventListener("click", newTaskWindow);
-    document.getElementById("createCatBtn").addEventListener("click", newCategoryInput);
+    document.getElementById("todayBtn").addEventListener("click", () => loadTasksList(tasksArray))
+    document.getElementById("newTaskBtn").addEventListener("click", loadNewTaskForm)
+    document.getElementById("newProjectBtn").addEventListener("click", newProjectInput)
 }
+
 function loadTasksList(array) {
-    const listWrapper = document.getElementById(`list`)
-    if(listWrapper) {
-        listWrapper.innerHTML = ``
+    const tasksList = document.createElement(`div`)
+    const tasks = array
+    if(tasksList) {
+        tasksList.innerHTML = ``
     }
-    array.forEach(item => {
-        const listedTasks = listWrapper.getElementsByClassName(`taskName`)
+    tasks.forEach(item => {
+        const listedTasks = tasksList.getElementsByClassName(`taskName`)
         const taskIsDisplayed = false
         for (let taskTitle of listedTasks) {
             if (!taskTitle.textContent === item.title) {
@@ -88,15 +91,16 @@ function loadTasksList(array) {
         }
     })
 }
+
 function loadProjectsList(array) {
-    const projects = array;
-    const projectsWrapper = document.getElementById(`sideCatList`);
+    const projects = array
+    const projectsList = document.getElementById(`projectsList`)
     function updateList(projects) {
-        const listedProjects = list.getElementsByTagName(`li`);
+        const listedProjects = projectsList.getElementsByTagName(`li`)
         for (let li of listedProjects) {
             const projectName = li.dataset.projectName;
             if (!projects.includes(projectName)) {
-                projectsWrapper.removeChild(li);
+                projectsList.removeChild(li);
             }
         }
     }
@@ -114,9 +118,9 @@ function loadProjectsList(array) {
             const removeButton = document.createElement(`button`);
             newProject.dataset.projectName = item;
             newProject.textContent = item;
-            newProject.addEventListener(`click`, selectedProject);
+            newProject.addEventListener(`click`, (event) => loadTasksList(selectedProject));
             removeButton.textContent = `X`;
-            removeButton.setAttribute(`class`, `removeCatBtn`);
+            removeButton.setAttribute(`class`, `removeProjectBtn`);
             removeButton.addEventListener(`click`, removeProject);
             newProject.appendChild(removeButton);
             list.appendChild(newProject);
@@ -124,19 +128,30 @@ function loadProjectsList(array) {
     });
     updateList(projects)
 }
-function loadNewTaskScreen() {
+function loadNewTaskForm() {
     if (document.getElementById(`newTaskContainer`)) {
         return
     }
-    const newTaskWrapper = document.createElement(`div`).setAttribute(`id`, `newTaskWrapper`).setAttribute(`class`, `newTaskWrapper`)
-    const form = document.createElement(`form`).setAttribute(`id`, `newTaskForm`).setAttribute(`class`, `newTaskForm`)
-    const titleLabel = document.createElement(`label`).setAttribute(`id`, `titleLabel`).setAttribute(`class`, `newTaskLabel`)
-    const titleInput = document.createElement(`input`).setAttribute(`id`, `titleInput`).setAttribute(`class`, `newTaskInput`)
-    const projectLabel = document.createElement(`label`).setAttribute(`id`, `projectLabel`).setAttribute(`class`, `newTaskLabel`)
-    const projectSelect = document.createElement(`select`).setAttribute(`id`, `projectSelect`).setAttribute(`class`, `newTaskInput`)
-    const dateLabel = document.createElement(`label`).setAttribute(`id`, `dateLabel`).setAttribute(`class`, `newTaskLabel`)
-    const dateInput = document.createElement(`input`).setAttribute(`id`, `dateSelect`).setAttribute(`class`, `newTaskInput`)
-    const button = document.createElement(`button`).setAttribute(`id`, `submitTaskBtn`).setAttribute(`class`, `submitTaskBtn`)
+    const newTaskWrapper = document.createElement(`div`)
+    const form = document.createElement(`form`)
+    const titleLabel = document.createElement(`label`)
+    const titleInput = document.createElement(`input`)
+    const projectLabel = document.createElement(`label`)
+    const projectSelect = document.createElement(`select`)
+    const dateLabel = document.createElement(`label`)
+    const dateInput = document.createElement(`input`)
+    const button = document.createElement(`button`)
+
+    setAttributes(newTaskWrapper, {'id': `newTaskWrapper`, 'class': `newTaskWrapper`})
+    setAttributes(form, {'id': `newTaskForm`, 'class': `newTaskForm`})
+    setAttributes(titleLabel, {'id': `titleLabel`, 'class': `newTaskLabel`})
+    setAttributes(titleInput, {'id': `titleInput`, 'class': `newTaskInput`})
+    setAttributes(projectLabel, {'id': `projectLabel`, 'class': `newTaskLabel`})
+    setAttributes(projectSelect, {'id': `projectSelect`, 'class': `newTaskInput`})
+    setAttributes(dateLabel, {'id': `dateLabel`, 'class': `newTaskLabel`})
+    setAttributes(dateInput, {'id': `dateInput`, 'class': `newTaskInput`})
+    setAttributes(button, {'id': `submitTaskBtn`, 'class': `submitTaskBtn`})
+
     pageTitle.innerText = `Create New Task`
     titleLabel.innerText = `Title`
     projectLabel.innerText = `Project`
@@ -144,7 +159,7 @@ function loadNewTaskScreen() {
     button.innerText = `Submit`
 
     function populateProjectSelector(arr) {
-        const projectSelect = document.getElementById(`newTaskCategoryInput`)
+        const projectSelect = document.getElementById(`projectSelect`)
         arr.forEach(item => {
             const option = document.createElement(`option`)
             option.value = item
@@ -153,7 +168,7 @@ function loadNewTaskScreen() {
         })
     }
     button.addEventListener(`click`, newTask);
-    container.appendChild(newTaskContainer)
+    main.appendChild(newTaskWrapper)
     newTaskWrapper.appendChild(form)
     form.appendChild(titleLabel)
     form.appendChild(titleInput)
@@ -162,7 +177,7 @@ function loadNewTaskScreen() {
     form.appendChild(dateLabel)
     form.appendChild(dateInput)
     form.appendChild(button)
-    populateProjectSelector();
+    populateProjectSelector(projectsArray);
 }
 function newProjectInput(event) {
     const projectButton = event.target
