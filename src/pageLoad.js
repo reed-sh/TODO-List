@@ -1,5 +1,5 @@
 import { addProject, projectsArray, removeProject, selectedProject } from "./projects"
-import { tasksArray, newTask, displayTask } from "./tasks"
+import { tasksArray, newTask, removeTask } from "./tasks"
 import { setAttributes } from "./utils"
 
 export function loadPage() {
@@ -75,21 +75,22 @@ export function loadPage() {
 
 function loadTasksList(array) {
     const tasksList = document.createElement(`div`)
+    tasksList.setAttribute(`id`, `tasksList`)
     const tasks = array
     if(tasksList) {
         tasksList.innerHTML = ``
     }
     tasks.forEach(item => {
         const listedTasks = tasksList.getElementsByClassName(`taskName`)
-        const taskIsDisplayed = false
+        let taskIsDisplayed = false
         for (let taskTitle of listedTasks) {
-            if (!taskTitle.textContent === item.title) {
+            if (taskTitle.textContent !== item.title) {
                 taskIsDisplayed = true
                 break;
             }
         }
         if (!taskIsDisplayed) {
-            displayTask(item)
+            tasksList.appendChild(displayTask(item))
         }
     })
 }
@@ -127,11 +128,36 @@ function loadProjectsList(array) {
             newProject.appendChild(removeButton);
             projectsList.appendChild(newProject);
         }
-    });
+    })
     updateList(projects)
 }
+
+function displayTask(task) {
+    const taskContainer = document.createElement(`div`)
+    const taskTitle = document.createElement(`div`)
+    const taskProject = document.createElement(`div`)
+    const taskDate = document.createElement(`div`)
+    const taskCompletion = document.createElement(`button`)
+    setAttributes(taskContainer, {'class': `taskContainer`, 'data-id': task.id})
+    setAttributes(taskTitle, {'class': `taskTitle`})
+    setAttributes(taskProject, {'class': `taskProject`})
+    setAttributes(taskDate, {'class': `taskDate`})
+    setAttributes(taskCompletion, {'class': `taskCompletion`})
+    taskTitle.textContent = task.title
+    taskProject.textContent = task.project
+    taskDate.textContent = task.date
+    taskCompletion.textContent = `X`
+    taskCompletion.addEventListener(`click`, removeTask)
+    taskContainer.appendChild(taskTitle)
+    taskContainer.appendChild(taskProject)
+    taskContainer.appendChild(taskDate)
+    taskContainer.appendChild(taskCompletion)
+
+    return taskContainer
+}
+
 function loadNewTaskForm() {
-    if (document.getElementById(`newTaskContainer`)) {
+    if (document.getElementById(`newTaskWrapper`)) {
         return
     }
     const newTaskWrapper = document.createElement(`div`)
@@ -169,7 +195,11 @@ function loadNewTaskForm() {
             projectSelect.appendChild(option)
         })
     }
-    button.addEventListener(`click`, newTask);
+    button.addEventListener('click', (event) => {
+        newTask(event)
+        loadTasksList(tasksArray)
+    })
+
     main.appendChild(newTaskWrapper)
     newTaskWrapper.appendChild(form)
     form.appendChild(titleLabel)
