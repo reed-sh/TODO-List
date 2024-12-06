@@ -82,6 +82,7 @@ function loadTasksList(array) {
     const displayedTasks = new Set()
     tasksList.setAttribute(`id`, `tasksList`)
     clearMain()
+    setPageTitle("Your List")
 
     array.forEach(item => {
         if (!displayedTasks.has(item.title)) {
@@ -119,7 +120,10 @@ function loadProjectsList(array) {
             const removeButton = document.createElement(`button`);
             newProject.dataset.projectName = item;
             newProject.textContent = item;
-            newProject.addEventListener(`click`, (click) => loadTasksList(selectedProject(click)));
+            newProject.addEventListener(`click`, (event) => {
+                loadTasksList(selectedProject(event))
+                setPageTitle(selectedProject(event)[0].project)
+        })
             removeButton.textContent = `X`;
             removeButton.setAttribute(`class`, `removeProjectBtn`);
             removeButton.addEventListener(`click`, removeProject);
@@ -162,6 +166,7 @@ function loadNewTaskForm() {
         return
     }
     clearMain()
+    setPageTitle("Create New Task")
     const newTaskWrapper = document.createElement(`div`)
     const form = document.createElement(`form`)
     const titleLabel = document.createElement(`label`)
@@ -181,8 +186,6 @@ function loadNewTaskForm() {
     setAttributes(dateLabel, {'id': `dateLabel`, 'class': `newTaskLabel`})
     setAttributes(dateInput, {'id': `dateInput`, 'class': `newTaskInput`})
     setAttributes(button, {'id': `submitTaskBtn`, 'class': `submitTaskBtn`})
-
-    pageTitle.innerText = `Create New Task`
     titleLabel.innerText = `Title`
     projectLabel.innerText = `Project`
     dateLabel.innerText = `Date`
@@ -217,6 +220,7 @@ function loadNewTaskForm() {
 
 function setPageTitle(string) {
     let pageTitle = document.getElementById(`pageTitle`)
+    pageTitle.innerText = string
 }
 
 function newProjectInput(event) {
