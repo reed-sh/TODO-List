@@ -66,26 +66,22 @@ export function loadPage() {
     header.appendChild(pageTitle)
     header.appendChild(pageDivider)
 
-    document.getElementById("todayBtn").addEventListener("click", () => loadTasksList(tasksArray))
+    document.getElementById("homeBtn").addEventListener("click", () => loadTasksList(tasksArray))
     document.getElementById("newTaskBtn").addEventListener("click", loadNewTaskForm)
     document.getElementById("newProjectBtn").addEventListener("click", newProjectInput)
     loadTasksList(tasksArray)
     loadProjectsList(projectsArray)
 }
 
-function hideTasksList() {
-    if (document.getElementById(`tasksList`)) {
-        tasksList = document.getElementById(`tasksList`)
-        tasksList.innerHTML = ``
-        tasksList.parentNode.removeChild(tasksList)
-    }
+function clearMainWindow() {
+    main.innerHTML = ``
 }
 
 function loadTasksList(array) {
     const tasksList = document.createElement(`div`)
     const displayedTasks = new Set()
     tasksList.setAttribute(`id`, `tasksList`)
-    hideTasksList()
+    clearMainWindow()
 
     array.forEach(item => {
         if (!displayedTasks.has(item.title)) {
@@ -162,7 +158,7 @@ function loadNewTaskForm() {
     if (document.getElementById(`newTaskWrapper`)) {
         return
     }
-    hideTasksList()
+    clearMainWindow()
     const newTaskWrapper = document.createElement(`div`)
     const form = document.createElement(`form`)
     const titleLabel = document.createElement(`label`)
