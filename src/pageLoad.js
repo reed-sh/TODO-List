@@ -122,7 +122,7 @@ function loadProjectsList(array) {
             newProject.textContent = item;
             newProject.addEventListener(`click`, (event) => {
                 loadTasksList(selectedProject(event))
-                setPageTitle(selectedProject(event)[0].project)
+                setPageTitle(newProject.dataset.projectName)
         })
             removeButton.textContent = `X`;
             removeButton.setAttribute(`class`, `removeProjectBtn`);
@@ -220,7 +220,7 @@ function loadNewTaskForm() {
 
 function setPageTitle(string) {
     let pageTitle = document.getElementById(`pageTitle`)
-    pageTitle.innerText = string
+        pageTitle.innerText = string
 }
 
 function newProjectInput(event) {
