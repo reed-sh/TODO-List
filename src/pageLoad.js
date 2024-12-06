@@ -145,7 +145,10 @@ function displayTask(task) {
     taskProject.textContent = task.project
     taskDate.textContent = task.date
     taskCompletion.textContent = `X`
-    taskCompletion.addEventListener(`click`, removeTask)
+    taskCompletion.addEventListener(`click`, (event) => {
+        removeTask(event)
+        loadTasksList(tasksArray)
+    })
     taskContainer.appendChild(taskTitle)
     taskContainer.appendChild(taskProject)
     taskContainer.appendChild(taskDate)
@@ -196,7 +199,7 @@ function loadNewTaskForm() {
     }
     button.addEventListener('click', (event) => {
         newTask(event)
-        hideNewTaskFrom()
+        clearMain()
         loadTasksList(tasksArray)
     })
 
@@ -212,9 +215,8 @@ function loadNewTaskForm() {
     populateProjectSelector(projectsArray);
 }
 
-function hideNewTaskFrom() {
-    newTaskWrapper.innerHTML = ``
-    main.removeChild(newTaskWrapper)
+function setPageTitle(string) {
+    let pageTitle = document.getElementById(`pageTitle`)
 }
 
 function newProjectInput(event) {
