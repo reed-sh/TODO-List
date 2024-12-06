@@ -133,7 +133,10 @@ function loadProjectsList(array) {
         })
             removeButton.textContent = `X`;
             removeButton.setAttribute(`class`, `removeProjectBtn`);
-            removeButton.addEventListener(`click`, removeProject);
+            removeButton.addEventListener(`click`, (event) => {
+                removeProject(event)
+                loadProjectsList(projectsArray)
+            });
             newProject.appendChild(removeButton);
             projectsList.appendChild(newProject);
         }
