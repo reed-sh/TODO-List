@@ -73,26 +73,28 @@ export function loadPage() {
     loadProjectsList(projectsArray)
 }
 
+function hideTasksList() {
+    if (document.getElementById(`tasksList`)) {
+        tasksList = document.getElementById(`tasksList`)
+        tasksList.innerHTML = ``
+        tasksList.parentNode.removeChild(tasksList)
+    }
+}
+
 function loadTasksList(array) {
     const tasksList = document.createElement(`div`)
+    const displayedTasks = new Set()
     tasksList.setAttribute(`id`, `tasksList`)
-    const tasks = array
-    if(tasksList) {
-        tasksList.innerHTML = ``
-    }
-    tasks.forEach(item => {
-        const listedTasks = tasksList.getElementsByClassName(`taskName`)
-        let taskIsDisplayed = false
-        for (let taskTitle of listedTasks) {
-            if (taskTitle.textContent !== item.title) {
-                taskIsDisplayed = true
-                break;
-            }
-        }
-        if (!taskIsDisplayed) {
+    hideTasksList()
+
+    array.forEach(item => {
+        if (!displayedTasks.has(item.title)) {
             tasksList.appendChild(displayTask(item))
+            displayedTasks.add(item.title)
         }
     })
+
+    main.appendChild(tasksList)
 }
 
 function loadProjectsList(array) {
@@ -160,6 +162,7 @@ function loadNewTaskForm() {
     if (document.getElementById(`newTaskWrapper`)) {
         return
     }
+    hideTasksList()
     const newTaskWrapper = document.createElement(`div`)
     const form = document.createElement(`form`)
     const titleLabel = document.createElement(`label`)
@@ -197,6 +200,7 @@ function loadNewTaskForm() {
     }
     button.addEventListener('click', (event) => {
         newTask(event)
+        hideNewTaskFrom()
         loadTasksList(tasksArray)
     })
 
@@ -211,6 +215,12 @@ function loadNewTaskForm() {
     form.appendChild(button)
     populateProjectSelector(projectsArray);
 }
+
+function hideNewTaskFrom() {
+    newTaskWrapper.innerHTML = ``
+    main.removeChild(newTaskWrapper)
+}
+
 function newProjectInput(event) {
     const projectButton = event.target
     const projectInput = document.createElement(`input`)
