@@ -370,3 +370,9 @@ body {
     font-weight: bolder;
     justify-self: right;
 }
+
+#isEmptyMsg {
+    font-size: 2rem;
+    text-transform: uppercase;
+    margin-top: 1rem;
+}

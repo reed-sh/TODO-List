@@ -84,6 +84,13 @@ function loadTasksList(array) {
     clearMain()
     setPageTitle("Your List")
 
+    if (array.length === 0) {
+        const isEmptyMsg = document.createElement(`span`)
+        isEmptyMsg.setAttribute(`id`, `isEmptyMsg`)
+        isEmptyMsg.textContent = "Your project is empty."
+        main.appendChild(isEmptyMsg)
+    }
+
     array.forEach(item => {
         if (!displayedTasks.has(item.title)) {
             tasksList.appendChild(displayTask(item))
