@@ -73,7 +73,7 @@ export function loadPage() {
     loadProjectsList(projectsArray)
 }
 
-function clearMainWindow() {
+function clearMain() {
     main.innerHTML = ``
 }
 
@@ -81,7 +81,7 @@ function loadTasksList(array) {
     const tasksList = document.createElement(`div`)
     const displayedTasks = new Set()
     tasksList.setAttribute(`id`, `tasksList`)
-    clearMainWindow()
+    clearMain()
 
     array.forEach(item => {
         if (!displayedTasks.has(item.title)) {
@@ -158,7 +158,7 @@ function loadNewTaskForm() {
     if (document.getElementById(`newTaskWrapper`)) {
         return
     }
-    clearMainWindow()
+    clearMain()
     const newTaskWrapper = document.createElement(`div`)
     const form = document.createElement(`form`)
     const titleLabel = document.createElement(`label`)
@@ -234,6 +234,7 @@ function newProjectInput(event) {
             projectInput.parentNode.replaceChild(newButton, projectInput)
             newButton.addEventListener(`click`, newProjectInput)
             addProject(projectInput.value)
+            loadProjectsList(projectsArray)
         }
     })
     projectInput.addEventListener(`blur`, function() {
