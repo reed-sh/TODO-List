@@ -20,10 +20,10 @@ export class Task {
     };
 
     changeCompletion(){
-        if (completed === false){
-            completed = true 
+        if (this.completed === false){
+            this.completed = true 
         } else {
-            completed = false
+            this.completed = false
         };
     };
 };

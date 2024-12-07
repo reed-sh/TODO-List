@@ -1,5 +1,5 @@
 import { addProject, projectsArray, removeProject, selectedProject } from "./projects"
-import { tasksArray, newTask, removeTask } from "./tasks"
+import { tasksArray, newTask, removeTask, taskChangeCompletion } from "./tasks"
 import { setAttributes } from "./utils"
 
 export function loadPage() {
@@ -169,6 +169,7 @@ function displayTask(task) {
         removeTask(event)
         loadTasksList(tasksArray)
     })
+    completeTask.addEventListener(`change`, (event) => taskChangeCompletion(event))
     taskContainer.appendChild(completeButton)
     taskContainer.appendChild(deleteTask)
     taskContainer.appendChild(taskInfo)
