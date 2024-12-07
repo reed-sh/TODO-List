@@ -146,14 +146,20 @@ function loadProjectsList(array) {
 
 function displayTask(task) {
     const taskContainer = document.createElement(`div`)
+    const taskInfo = document.createElement(`div`)
     const taskTitle = document.createElement(`div`)
     const taskProject = document.createElement(`div`)
     const taskDate = document.createElement(`div`)
+    const completeButton = document.createElement(`div`)
+    const completeTask = document.createElement(`input`)
     const deleteTask = document.createElement(`button`)
     setAttributes(taskContainer, {'class': `taskContainer`, 'data-id': task.id})
+    setAttributes(taskInfo, {'class': `taskInfo'`})
     setAttributes(taskTitle, {'class': `taskTitle`})
     setAttributes(taskProject, {'class': `taskProject`})
     setAttributes(taskDate, {'class': `taskDate`})
+    setAttributes(completeButton, {'class': `completeButton`})
+    setAttributes(completeTask, {'class': `completeTask`, 'type': `checkbox`})
     setAttributes(deleteTask, {'class': `deleteTask`})
     taskTitle.textContent = task.title
     taskProject.textContent = task.project
@@ -163,10 +169,13 @@ function displayTask(task) {
         removeTask(event)
         loadTasksList(tasksArray)
     })
-    taskContainer.appendChild(taskTitle)
-    taskContainer.appendChild(taskProject)
-    taskContainer.appendChild(taskDate)
+    taskContainer.appendChild(completeButton)
     taskContainer.appendChild(deleteTask)
+    taskContainer.appendChild(taskInfo)
+    completeButton.appendChild(completeTask)
+    taskInfo.appendChild(taskTitle)
+    taskInfo.appendChild(taskProject)
+    taskInfo.appendChild(taskDate)
 
     return taskContainer
 }
