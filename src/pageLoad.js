@@ -149,24 +149,24 @@ function displayTask(task) {
     const taskTitle = document.createElement(`div`)
     const taskProject = document.createElement(`div`)
     const taskDate = document.createElement(`div`)
-    const taskCompletion = document.createElement(`button`)
+    const deleteTask = document.createElement(`button`)
     setAttributes(taskContainer, {'class': `taskContainer`, 'data-id': task.id})
     setAttributes(taskTitle, {'class': `taskTitle`})
     setAttributes(taskProject, {'class': `taskProject`})
     setAttributes(taskDate, {'class': `taskDate`})
-    setAttributes(taskCompletion, {'class': `taskCompletion`})
+    setAttributes(deleteTask, {'class': `deleteTask`})
     taskTitle.textContent = task.title
     taskProject.textContent = task.project
     taskDate.textContent = task.date
-    taskCompletion.textContent = `X`
-    taskCompletion.addEventListener(`click`, (event) => {
+    deleteTask.textContent = `X`
+    deleteTask.addEventListener(`click`, (event) => {
         removeTask(event)
         loadTasksList(tasksArray)
     })
     taskContainer.appendChild(taskTitle)
     taskContainer.appendChild(taskProject)
     taskContainer.appendChild(taskDate)
-    taskContainer.appendChild(taskCompletion)
+    taskContainer.appendChild(deleteTask)
 
     return taskContainer
 }

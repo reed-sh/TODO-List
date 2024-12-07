@@ -305,7 +305,7 @@ body {
     width: 100;
 }
 
-.taskContainer:hover > .taskCompletion {
+.taskContainer:hover > .deleteTask {
     background-color: #f38ba8;
     color: #11111b;
 }
@@ -355,7 +355,7 @@ body {
     color: #7f849c;
 }
 
-.taskCompletion {
+.deleteTask {
     grid-row-start: 1;
     grid-row-end: 4;
     grid-column-start: 2;
