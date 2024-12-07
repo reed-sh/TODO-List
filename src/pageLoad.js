@@ -1,6 +1,6 @@
 import { addProject, projectsArray, removeProject, selectedProject } from "./projects"
 import { tasksArray, newTask, removeTask, taskChangeCompletion } from "./tasks"
-import { setAttributes } from "./utils"
+import { checkboxClicked, setAttributes } from "./utils"
 
 export function loadPage() {
     const content = document.getElementById(`content`)
@@ -169,7 +169,9 @@ function displayTask(task) {
         removeTask(event)
         loadTasksList(tasksArray)
     })
-    completeTask.addEventListener(`change`, (event) => taskChangeCompletion(event))
+    completeButton.addEventListener(`click`, (event) => {
+        taskChangeCompletion(event)
+    })
     taskContainer.appendChild(completeButton)
     taskContainer.appendChild(deleteTask)
     taskContainer.appendChild(taskInfo)

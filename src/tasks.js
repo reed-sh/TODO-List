@@ -1,4 +1,5 @@
 import { Task } from "./taskObj"
+import { checkboxClicked } from "./utils";
 export let tasksArray = [
     new Task("Finish History Essay", "History", "12-12-2024", "3479261837"),
     new Task("Study for Physics Midterm", "Physics", "17-12-2024", "2357849031"),
@@ -34,9 +35,21 @@ export function removeTask(event) {
 }
 
 export function taskChangeCompletion(event) {
-    event.preventDefault()
-    const selectedTask = tasksArray.filter(item => item.id === event.target.parentNode.parentNode.getAttribute('data-id'))
-    let task = selectedTask[0]
-    task.changeCompletion()
-    console.log(task, "changed completion")
+    if (event.target && event.target.type === `checkbox`) {
+        const selectedTask = tasksArray.filter(item => item.id === event.target.parentNode.parentNode.getAttribute('data-id'))
+        let task = selectedTask[0]
+        task.changeCompletion()
+        console.log(task, "changed completion")
+        return
+    }
+    if (event.target && event.target.closest(`.completeButton`)) {
+        const button = event.target.closest(`.completeButton`)
+        const checkbox = button.querySelector(`input[type="checkbox"]`)
+        if (checkbox) {
+            const selectedTask = tasksArray.filter(item => item.id === button.parentNode.getAttribute('data-id'))
+            let task = selectedTask[0]
+            task.changeCompletion()
+            checkbox.checked = !checkbox.checked
+        }
+    }
 }
