@@ -32,3 +32,11 @@ export function removeTask(event) {
     event.preventDefault()
     tasksArray = tasksArray.filter(item => item.id !== event.target.parentNode.getAttribute('data-id'))
 }
+
+export function taskChangeCompletion(event) {
+    event.preventDefault()
+    const selectedTask = tasksArray.filter(item => item.id === event.target.parentNode.parentNode.getAttribute('data-id'))
+    let task = selectedTask[0]
+    task.changeCompletion()
+    console.log(task, "changed completion")
+}

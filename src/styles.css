@@ -290,11 +290,11 @@ body {
 
 .taskContainer {
     display: grid;
-    grid-template-columns: 2;
+    grid-template-columns: 5rem 1fr 5rem;
     grid-template-rows: 3;
     background-color: #45475a;
     box-shadow: 3px 3px #11111b;
-    padding-left: 2%;
+    padding-left: 0;
     padding-right: 0;
     padding-top: 0;
     padding-bottom: 0;
@@ -302,10 +302,24 @@ body {
     margin-bottom: 0.2rem;
     border: 0px;
     border-radius: 5px;
-    width: 100;
+    width: 100%;
 }
 
-.taskContainer:hover > .taskCompletion {
+.taskInfo {
+    display: flex;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+    flex-direction: column;
+    grid-row-start: 1;
+    grid-row-end: 4;
+    grid-column-start: 2;
+    grid-column-end: 2;
+    width: 100%;
+}
+
+.taskContainer:hover > .deleteTask {
     background-color: #f38ba8;
     color: #11111b;
 }
@@ -322,44 +336,76 @@ body {
     font-size: 1.5rem;
     font-weight: bold;
     margin-top: 0.3rem;
-    grid-row-start: 1;
-    grid-row-end: 1;
-    grid-column-start: 1;
-    grid-column-end: 1;
+    order: 1;
     width: 100%;
-    text-align: left;
     color: #7f849c;
     text-transform: uppercase;
+    text-align: left;
 }
 
 .taskProject {
     font-size: 0.8rem;
-    grid-row-start: 2;
-    grid-row-end: 2;
-    grid-column-start: 1;
-    grid-column-end: 1;
     width: 100%;
-    text-align: left;
     color: #7f849c;
+    order: 2;
 }
 
 .taskDate {
     font-size: 0.8rem;
-    grid-row-start: 3;
-    grid-row-end: 3;
-    grid-column-start: 1;
-    grid-column-end: 1;
     width: 100%;
     text-align: left;
     margin-bottom: 0.3rem;
     color: #7f849c;
+    order: 3;
 }
 
-.taskCompletion {
+.completeButton {
+    position: relative;
     grid-row-start: 1;
     grid-row-end: 4;
-    grid-column-start: 2;
-    grid-column-end: 2;
+    grid-column-start: 1;
+    grid-column-end: 1;
+    border: 5px;
+    border-radius: 5px 0px 0px 5px;
+    height: 100%;
+    width: 4rem;
+    background-color: #313244;
+}
+
+[type="checkbox"] {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    top: 50%;
+    left: 50%;
+    width: 2rem;
+    height: 2rem;
+    transform: translate(-50%, -50%);
+    appearance: none;
+
+}
+
+[type="checkbox"]::before {
+    content: "";
+    position: absolute;
+    height: 2rem;
+    width: 2rem;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+    transform-origin: center;
+    box-shadow: inset 1rem 1rem 1rem 1rem #a6e3a1;
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+}
+
+[type="checkbox"]:checked::before {
+    transform: scale(1);
+  }
+
+.deleteTask {
+    grid-row-start: 1;
+    grid-row-end: 4;
+    grid-column-start: 3;
+    grid-column-end: 3;
     border: 5px;
     border-radius: 0px 5px 5px 0px;
     height: 100%;
@@ -369,4 +415,10 @@ body {
     font-size: 2rem;
     font-weight: bolder;
     justify-self: right;
+}
+
+#isEmptyMsg {
+    font-size: 2rem;
+    text-transform: uppercase;
+    margin-top: 1rem;
 }

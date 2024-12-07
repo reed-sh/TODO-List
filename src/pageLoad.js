@@ -1,5 +1,5 @@
 import { addProject, projectsArray, removeProject, selectedProject } from "./projects"
-import { tasksArray, newTask, removeTask } from "./tasks"
+import { tasksArray, newTask, removeTask, taskChangeCompletion } from "./tasks"
 import { setAttributes } from "./utils"
 
 export function loadPage() {
@@ -82,6 +82,14 @@ function loadTasksList(array) {
     const displayedTasks = new Set()
     tasksList.setAttribute(`id`, `tasksList`)
     clearMain()
+    setPageTitle("Your List")
+
+    if (array.length === 0) {
+        const isEmptyMsg = document.createElement(`span`)
+        isEmptyMsg.setAttribute(`id`, `isEmptyMsg`)
+        isEmptyMsg.textContent = "Your project is empty."
+        main.appendChild(isEmptyMsg)
+    }
 
     array.forEach(item => {
         if (!displayedTasks.has(item.title)) {
@@ -119,10 +127,16 @@ function loadProjectsList(array) {
             const removeButton = document.createElement(`button`);
             newProject.dataset.projectName = item;
             newProject.textContent = item;
-            newProject.addEventListener(`click`, (click) => loadTasksList(selectedProject(click)));
+            newProject.addEventListener(`click`, (event) => {
+                loadTasksList(selectedProject(event))
+                setPageTitle(newProject.dataset.projectName)
+        })
             removeButton.textContent = `X`;
             removeButton.setAttribute(`class`, `removeProjectBtn`);
-            removeButton.addEventListener(`click`, removeProject);
+            removeButton.addEventListener(`click`, (event) => {
+                removeProject(event)
+                loadProjectsList(projectsArray)
+            });
             newProject.appendChild(removeButton);
             projectsList.appendChild(newProject);
         }
@@ -132,27 +146,37 @@ function loadProjectsList(array) {
 
 function displayTask(task) {
     const taskContainer = document.createElement(`div`)
+    const taskInfo = document.createElement(`div`)
     const taskTitle = document.createElement(`div`)
     const taskProject = document.createElement(`div`)
     const taskDate = document.createElement(`div`)
-    const taskCompletion = document.createElement(`button`)
+    const completeButton = document.createElement(`div`)
+    const completeTask = document.createElement(`input`)
+    const deleteTask = document.createElement(`button`)
     setAttributes(taskContainer, {'class': `taskContainer`, 'data-id': task.id})
+    setAttributes(taskInfo, {'class': `taskInfo'`})
     setAttributes(taskTitle, {'class': `taskTitle`})
     setAttributes(taskProject, {'class': `taskProject`})
     setAttributes(taskDate, {'class': `taskDate`})
-    setAttributes(taskCompletion, {'class': `taskCompletion`})
+    setAttributes(completeButton, {'class': `completeButton`})
+    setAttributes(completeTask, {'class': `completeTask`, 'type': `checkbox`})
+    setAttributes(deleteTask, {'class': `deleteTask`})
     taskTitle.textContent = task.title
     taskProject.textContent = task.project
     taskDate.textContent = task.date
-    taskCompletion.textContent = `X`
-    taskCompletion.addEventListener(`click`, (event) => {
+    deleteTask.textContent = `X`
+    deleteTask.addEventListener(`click`, (event) => {
         removeTask(event)
         loadTasksList(tasksArray)
     })
-    taskContainer.appendChild(taskTitle)
-    taskContainer.appendChild(taskProject)
-    taskContainer.appendChild(taskDate)
-    taskContainer.appendChild(taskCompletion)
+    completeTask.addEventListener(`change`, (event) => taskChangeCompletion(event))
+    taskContainer.appendChild(completeButton)
+    taskContainer.appendChild(deleteTask)
+    taskContainer.appendChild(taskInfo)
+    completeButton.appendChild(completeTask)
+    taskInfo.appendChild(taskTitle)
+    taskInfo.appendChild(taskProject)
+    taskInfo.appendChild(taskDate)
 
     return taskContainer
 }
@@ -162,6 +186,7 @@ function loadNewTaskForm() {
         return
     }
     clearMain()
+    setPageTitle("Create New Task")
     const newTaskWrapper = document.createElement(`div`)
     const form = document.createElement(`form`)
     const titleLabel = document.createElement(`label`)
@@ -181,8 +206,6 @@ function loadNewTaskForm() {
     setAttributes(dateLabel, {'id': `dateLabel`, 'class': `newTaskLabel`})
     setAttributes(dateInput, {'id': `dateInput`, 'class': `newTaskInput`})
     setAttributes(button, {'id': `submitTaskBtn`, 'class': `submitTaskBtn`})
-
-    pageTitle.innerText = `Create New Task`
     titleLabel.innerText = `Title`
     projectLabel.innerText = `Project`
     dateLabel.innerText = `Date`
@@ -217,6 +240,7 @@ function loadNewTaskForm() {
 
 function setPageTitle(string) {
     let pageTitle = document.getElementById(`pageTitle`)
+        pageTitle.innerText = string
 }
 
 function newProjectInput(event) {
