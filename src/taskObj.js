@@ -1,10 +1,10 @@
 export class Task {
-    constructor(title, project, date, id){
+    constructor(title, project, date, id, completed){
         this.title = title;
         this.project = project;
         this.date = date;
         this.id = id;
-        this.completed = false;
+        this.completed = completed;
     };
 
     changeTitle(newTitle) {

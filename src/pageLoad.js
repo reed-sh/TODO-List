@@ -161,6 +161,11 @@ function displayTask(task) {
     setAttributes(completeButton, {'class': `completeButton`})
     setAttributes(completeTask, {'class': `completeTask`, 'type': `checkbox`})
     setAttributes(deleteTask, {'class': `deleteTask`})
+
+    if (task.completed === true) {
+        completeTask.checked = true
+    }
+
     taskTitle.textContent = task.title
     taskProject.textContent = task.project
     taskDate.textContent = task.date
