@@ -111,8 +111,12 @@ function loadTasksList(array) {
     })
 
     if (completedTaskCount >= 1) {
-        main.appendChild(completedLabel)
         main.appendChild(completedTasksList)
+        main.appendChild(completedLabel)
+
+        completedLabel.addEventListener(`click`, () => {
+            completedTasksList.classList.toggle(`active`);
+        })
     }
 
 

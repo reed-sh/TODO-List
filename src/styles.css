@@ -69,6 +69,34 @@ body {
     flex-direction: column;
 }
 
+#tasksList {
+    order: 1;
+}
+
+#completedTasksList {
+    order: 3;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.3s ease-out;
+}
+
+#completedTasksList.active {
+    overflow: scroll;
+    max-height: 23rem;
+    transition: max-height 0.5s ease-in;
+}
+
+#completedLabel {
+    order: 2;
+    cursor: pointer;
+    font-size: 1.8rem;
+    user-select: none;
+    margin-top: 1rem;
+    margin-bottom: 0.3rem;
+}
+
 #newTaskBtn {
     background-color: #181825;
     color:#fab387;
