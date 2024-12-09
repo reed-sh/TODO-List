@@ -80,9 +80,13 @@ function clearMain() {
 function loadTasksList(array) {
     const tasksList = document.createElement(`div`)
     const completedTasksList = document.createElement(`div`)
+    const completedLabel = document.createElement(`span`)
     const displayedTasks = new Set()
+    let completedTaskCount = 0;
     tasksList.setAttribute(`id`, `tasksList`)
     completedTasksList.setAttribute(`id`, `completedTasksList`)
+    completedLabel.setAttribute(`id`, `completedLabel`)
+    completedLabel.innerText = 'Completed Tasks'
     clearMain()
     setPageTitle("Your List")
 
@@ -96,6 +100,7 @@ function loadTasksList(array) {
     array.forEach(item => {
         if (!displayedTasks.has(item.title)) {
             if (item.completed === true) {
+                completedTaskCount++
                 completedTasksList.appendChild(displayTask(item))
                 displayedTasks.add(item.title)
             } else {
@@ -105,8 +110,13 @@ function loadTasksList(array) {
         }
     })
 
+    if (completedTaskCount >= 1) {
+        main.appendChild(completedLabel)
+        main.appendChild(completedTasksList)
+    }
+
+
     main.appendChild(tasksList)
-    main.appendChild(completedTasksList)
 }
 
 function loadProjectsList(array) {
