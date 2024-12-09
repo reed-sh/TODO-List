@@ -81,12 +81,13 @@ function loadTasksList(array) {
     const tasksList = document.createElement(`div`)
     const completedTasksList = document.createElement(`div`)
     const completedLabel = document.createElement(`span`)
+    const completedDivider = document.createElement(`hr`)
     const displayedTasks = new Set()
     let completedTaskCount = 0;
     tasksList.setAttribute(`id`, `tasksList`)
     completedTasksList.setAttribute(`id`, `completedTasksList`)
     completedLabel.setAttribute(`id`, `completedLabel`)
-    completedLabel.innerText = 'Completed Tasks'
+    completedDivider.setAttribute(`id`, `completedDivider`)
     clearMain()
     setPageTitle("Your List")
 
@@ -111,11 +112,15 @@ function loadTasksList(array) {
     })
 
     if (completedTaskCount >= 1) {
+        completedLabel.innerText = `Completed Tasks  -  ${completedTaskCount}`
         main.appendChild(completedTasksList)
         main.appendChild(completedLabel)
+        main.appendChild(completedDivider)
 
         completedLabel.addEventListener(`click`, () => {
-            completedTasksList.classList.toggle(`active`);
+            completedTasksList.classList.toggle(`active`)
+            completedLabel.classList.toggle(`active`)
+            completedDivider.classList.toggle(`active`)
         })
     }
 
