@@ -184,6 +184,7 @@ function displayTask(task) {
     })
     completeButton.addEventListener(`click`, (event) => {
         taskChangeCompletion(event)
+        setTimeout(() => loadTasksList(tasksArray), 300)
     })
     taskContainer.appendChild(completeButton)
     taskContainer.appendChild(deleteTask)
